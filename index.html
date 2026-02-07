@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="img/icono.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <title>Informe de Gestión Protección</title>
+</head>
+<body>
+    <header>
+        <div class="header-title0"></div>
+        <div class="header-title1">
+            <h1>Informe de Gestión Acompañamiento</h1>
+        </div>
+        <div class="header-title2">
+            <h2>Protección</h2>
+        </div>
+    </header>
+    <main>
+        <section class="info_basica">
+            <h3>INFORMACIÓN BASICA</h3>
+            <div class="info_basica_recuadro">
+                <div class="form-group form-group-small">
+                    <label for="fecha">Fecha de Acompañamiento</label>
+                    <input type="date" id="fecha" name="fecha" class="form-input">
+                </div>
+                <div class="form-group form-group-small">
+                    <label for="NIT">NIT</label>
+                    <input type="text" id="NIT" name="NIT" class="form-input" placeholder="Ej: 860001234">
+                </div>
+                <div class="form-group form-group-large">
+                    <label for="razonSocial">Razón Social</label>
+                    <input type="text" id="razonSocial" name="razonSocial" class="form-input" readonly placeholder="Se llenará automáticamente...">
+                </div>
+            </div>
+        </section>
+        <section class="info_basica">
+            <h3>ASISTENTES</h3>
+            <div class="info_basica_recuadro2"> 
+                <div class="form-group form-group-large">
+                <label for="representante">Representante Empresa</label>
+                <input type="text" id="representante" name="representante" class="form-input" placeholder="Nombre del representante">
+                </div>
+                <div class="ejecutivo">
+                    <div class="form-group form-group-large">
+                    <label for="nombreEjecutivo">Ejecutivo Asistencia Empresarial</label>
+                    <select id="nombreEjecutivo" name="nombreEjecutivo" class="form-input form-select">
+                        <option value="">Seleccione un ejecutivo...</option>
+                        <option value="ejecutivo1">Juan Pedro Pérez Gonzalez</option>
+                        <option value="ejecutivo2">María Corina Machado de Plata</option>
+                        <option value="ejecutivo3">Ernesto Armando Casas de Bareque</option>
+                        <option value="ejecutivo4">Ana Tulia Lozano Martínez</option>
+                    </select>
+                    </div>
+                    <div class="form-group form-group-large">
+                    <label for="emailEjecutivo">E-mail Ejecutivo</label>
+                    <select id="emailEjecutivo" name="emailEjecutivo" class="form-input form-select">
+                        <option value="">Seleccione un correo...</option>
+                        <option value="juan.perez@proteccion.com">juan.perez@proteccion.com</option>
+                        <option value="maria.gonzalez@proteccion.com">maria.gonzalez@proteccion.com</option>
+                        <option value="carlos.rodriguez@proteccion.com">carlos.rodriguez@proteccion.com</option>
+                        <option value="ana.martinez@proteccion.com">ana.martinez@proteccion.com</option>
+                    </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+<!-- LISTA DE VERIFICACIÓN -->
+<section class="info_basica">
+  <h3>LISTA DE VERIFICACIÓN</h3>
+  <div class="info_basica_recuadro2">
+
+    <!-- ===================== -->
+    <!-- GESTIÓN DE DEUDAS PO -->
+    <!-- ===================== -->
+    <div class="check-bloque">
+      <div class="check-header">
+        <label>
+          <input type="checkbox" id="chkDeuda" />
+          <strong>GESTIÓN DE DEUDAS (PO)</strong>
+        </label>
+      </div>
+
+      <div class="check-contenido" id="deudaContenido">
+
+        <!-- Deuda Presunta -->
+        <div class="check-item">
+          <label>
+            <input type="checkbox" class="subcheck" />
+            Deuda Presunta
+          </label>
+          <input type="text" class="valor-input moneda" id="valorDeudaPresunta" placeholder="$ 0" disabled>
+        </div>
+        <textarea id="obsDeudaPresunta" class="check-textarea" placeholder="Observación (máx 200 palabras)..." maxlength="1200"></textarea>
+
+        <!-- Deuda Real -->
+        <div class="check-item">
+          <label>
+            <input type="checkbox" class="subcheck" />
+            Deuda Real
+          </label>
+          <input type="text" class="valor-input moneda" id="valorDeudaReal" placeholder="$ 0" disabled>
+        </div>
+        <textarea id="obsDeudaReal" class="check-textarea" placeholder="Observación (máx 200 palabras)..." maxlength="1200"></textarea>
+
+      </div>
+    </div>
+
+    <!-- ======================================== -->
+    <!-- GESTIÓN DE INCONSISTENCIAS PO, PV Y CES -->
+    <!-- ======================================== -->
+    <div class="check-bloque">
+      <div class="check-header">
+        <label>
+          <input type="checkbox" id="chkInconsistencias" />
+          <strong>GESTIÓN DE INCONSISTENCIAS (PO, PV Y CES)</strong>
+        </label>
+      </div>
+
+      <div class="check-contenido" id="inconsistenciasContenido">
+
+        <div class="check-item">
+          <label>
+            <input type="checkbox" class="subcheck" />
+            Pagos sin planilla (PO)
+          </label>
+          <input type="text" class="valor-input moneda" id="valorPagosPO" placeholder="$ 0" disabled>
+        </div>
+        <textarea id="obsPagosPO" class="check-textarea" placeholder="Observación (máx 200 palabras)..." maxlength="1200"></textarea>
+
+        <div class="check-item resaltado">
+          <label>
+            <input type="checkbox" class="subcheck" />
+            Aportes sin Acreditar (PO)
+          </label>
+          <input type="text" class="valor-input moneda" id="valorAportesPO" placeholder="$ 0" disabled>
+        </div>
+        <textarea id="obsAportesPO" class="check-textarea" placeholder="Observación (máx 200 palabras)..." maxlength="1200"></textarea>
+
+        <div class="check-item">
+          <label>
+            <input type="checkbox" class="subcheck" />
+            Pagos sin planilla (CES)
+          </label>
+          <input type="text" class="valor-input moneda" id="valorPagosCES" placeholder="$ 0" disabled>
+        </div>
+        <textarea id="obsPagosCES" class="check-textarea" placeholder="Observación (máx 200 palabras)..." maxlength="1200"></textarea>
+
+        <div class="check-item">
+          <label>
+            <input type="checkbox" class="subcheck" />
+            Pagos sin planilla (PV)
+          </label>
+          <input type="text" class="valor-input moneda" id="valorPagosPV" placeholder="$ 0" disabled>
+        </div>
+        <textarea id="obsPagosPV" class="check-textarea" placeholder="Observación (máx 200 palabras)..." maxlength="1200"></textarea>
+
+        <div class="check-item resaltado">
+          <label>
+            <input type="checkbox" class="subcheck" />
+            Aportes sin Acreditar (PV)
+          </label>
+          <input type="text" class="valor-input moneda" id="valorAportesPV" placeholder="$ 0" disabled>
+        </div>
+        <textarea id="obsAportesPV" class="check-textarea" placeholder="Observación (máx 200 palabras)..." maxlength="1200"></textarea>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+ <section class="info_basica">
+            <h3>CANALES DIGITALES</h3>
+            <div class="canales-container">
+                <!-- Primera fila: Clave Empresarial con SI/NO -->
+                <div class="canal-row">
+                    <div class="canal-item">
+                        <span class="canal-label">Clave Empresarial SI / NO</span>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="claveEmpresarial" value="si" class="radio-input">
+                                <span>SI</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="claveEmpresarial" value="no" class="radio-input">
+                                <span>NO</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="observacion-item">
+                        <label for="obsClaveEmpresarial">Observaciones</label>
+                        <textarea id="obsClaveEmpresarial" name="obsClaveEmpresarial" class="observacion-input" rows="2" placeholder="Asignación, Actualización, Eliminación..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Segunda fila: Asesoría General sin check -->
+                <div class="canal-row">
+                    <div class="canal-item">
+                        <span class="canal-label">Asesoría General Portal WEB</span>
+                    </div>
+                    <div class="observacion-item">
+                        <label for="obsAsesoriaGeneral">Observaciones</label>
+                        <textarea id="obsAsesoriaGeneral" name="obsAsesoriaGeneral" class="observacion-input" rows="2" placeholder="Ya Pagaste, Líquide y pague CES - PV, retiros y aprobación CES, consolidaciones PV, seguimiento a tramites de pensión, certificados, etc..."></textarea>
+                    </div>
+                </div>
+            </div>
+        </section>
+              <section class="info_basica">
+                  <h3>ACTUALIZACIÓN DE DATOS</h3>
+                  <div class="info_basica_recuadro">
+                      <div class="radio-group">
+                          <label class="radio-label">
+                              <input type="radio" name="actualizacionDatos" value="si" class="radio-input">
+                              <span>SI</span>
+                          </label>
+                          <label class="radio-label">
+                              <input type="radio" name="actualizacionDatos" value="no" class="radio-input">
+                              <span>NO</span>
+                          </label>
+                          <label class="radio-label">
+                              <input type="radio" name="actualizacionDatos" value="noAplica" class="radio-input">
+                              <span>No Aplica</span>
+                          </label>
+                      </div>
+                  </div>
+              </section>
+              <section class="info_basica">
+            <h3>TEMAS GENERALES</h3>
+            <div class="info_basica_recuadro2">
+                <div class="check-bloque">
+                    <label class="check-header">
+                        <input type="checkbox" id="checkCasosPendientes" onchange="toggleObservacion('checkCasosPendientes', 'obsCasosPendientes')">
+                        Casos Pendientes de Gestión (PQR)
+                    </label>
+                    <textarea id="obsCasosPendientes" class="check-textarea" placeholder="Escriba sus observaciones aquí..."></textarea>
+                </div>
+
+                <div class="check-bloque">
+                    <label class="check-header">
+                        <input type="checkbox" id="checkCompromisosEmpleador" onchange="toggleObservacion('checkCompromisosEmpleador', 'obsCompromisosEmpleador')">
+                        Compromisos Empleador
+                    </label>
+                    <textarea id="obsCompromisosEmpleador" class="check-textarea" placeholder="Escriba sus observaciones aquí..."></textarea>
+                </div>
+
+                <div class="check-bloque">
+                    <label class="check-header">
+                        <input type="checkbox" id="checkCompromisosProteccion" onchange="toggleObservacion('checkCompromisosProteccion', 'obsCompromisosProteccion')">
+                        Compromisos Protección
+                    </label>
+                    <textarea id="obsCompromisosProteccion" class="check-textarea" placeholder="Escriba sus observaciones aquí..."></textarea>
+                </div>
+            </div>
+        </section>
+
+<section class="info_basica">
+    <h3>AGENDAMIENTO</h3>
+    <div class="info_basica_recuadro2">
+        <div class="check-bloque">
+            <div class="check-header" style="margin-bottom: 12px;">
+                Nuevo Agendamiento
+            </div>
+            
+            <div class="radio-group" style="margin-bottom: 20px;">
+                <label class="radio-label">
+                    <input type="radio" name="proximoEncuentro" value="si" class="radio-input">
+                    <span>SÍ</span>
+                </label>
+                <label class="radio-label">
+                    <input type="radio" name="proximoEncuentro" value="no" class="radio-input" checked>
+                    <span>NO</span>
+                </label>
+            </div>
+
+            <div id="proximoObservacionContainer" class="proximo-obs">
+                <label for="obsProximoEncuentro">
+                    Detalle del próximo encuentro / observaciones
+                </label>
+                <textarea 
+                    id="obsProximoEncuentro" 
+                    class="observacion-input" 
+                    placeholder="Fecha tentativa, lugar/medio, hora aproximada, temas principales, responsable..."
+                    rows="3"
+                    maxlength="1200"
+                ></textarea>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="info_basica">
+  <h3>Encuesta de Satisfacción</h3>
+  <div class="info_basica_recuadro2">
+    <div class="check-bloque">
+      <div class="check-header" style="margin-bottom: 12px;">
+        ¿El empleador contestó la encuesta de satisfacción?
+      </div>
+
+      <div class="radio-group">
+        <label class="radio-label">
+          <input type="radio" name="encuestaSatisfaccion" value="si" class="radio-input">
+          <span>SÍ</span>
+        </label>
+        <label class="radio-label">
+          <input type="radio" name="encuestaSatisfaccion" value="no" class="radio-input">
+          <span>NO</span>
+        </label>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="firmas">
+  <div class="grupo_firmas">
+        <div class="firmas1"></div>
+        <div class="firmas2">
+          <div class="firmaA">
+          <p>* Firma Ejecutivo AE</p>
+          </div>
+          <div class="firmaB">
+          <p>* Firma Rep. Empresa</p>
+        </div>
+  </div>
+    <p><strong>* la firma del documento no es de caracter obligatorio</strong></p>
+  </div>
+</section>
+
+<!-- SECCIÓN DE BOTONES DE ACCIÓN -->
+<section class="info_basica">
+    <div class="botones-container">
+        <div class="botones-principales">
+            <button type="button" class="btn btn-guardar" onclick="guardarVisita()">
+                Guardar
+            </button>
+            <button type="button" class="btn btn-excel" onclick="descargarExcel()">
+                Descargar Excel
+            </button>    
+            <button type="button" class="btn btn-pdf" onclick="generarPDF()">
+                Generar PDF
+            </button>
+        </div>
+        <div class="boton-separado">
+            <button type="button" class="btn btn-borrar" onclick="borrarDatos()">
+                Borrar Datos
+            </button>
+        </div>
+    </div>
+</section>
+
+    </main>
+    <footer>
+        <p>&copy; 2026 Desarrollada por Cesar Martinez. Todos los derechos reservados.</p>
+        <img src="img/logo_letra_blanca_sin_fondo.png" alt="Logo desarrollador">
+    </footer>
+    <div class="bajo_footer"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/localforage/1.10.0/localforage.min.js"></script>
+    <script src="check.js"></script>
+    <script src="observaciones.js"></script>
+    <script src="botones_finales.js"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+:root{
+    --color-1: #dfca0e;
+    --color-2: #091057;
+    --color-3: #B8E6F5;
+    --color-4: #BCF2F6;
+    --color-negro: #000000;
+    --color-blanco: #ffffff;
+}
+
+Separar:
+
+storage.js → LocalForage / IndexedDB
+
+pdf.js → Generación PDF
+
+excel.js → Exportación Excel
+
+alerts.js → SweetAlert2
+
+form.js → Lógica del formulario
+
+main.js → Orquestador
