@@ -55,12 +55,12 @@
 
             <div class="form-group form-group-large">
               <label for="empresa">Razón Social</label>
-              <input type="text" id="empresa" name="empresa" class="form-input" readonly placeholder="Se llenará automáticamente...">
+              <input type="text" id="empresa" name="empresa" class="form-input" readonly placeholder="Digite el Nit para cargar la razón social...">
             </div>
 
             <div class="form-group form-group-large asesor">
               <label for="asesor">Asesor Comercial</label>
-              <input type="text" id="asesor" name="asesor" class="form-input" placeholder="Nombre del asesor">
+              <input type="text" id="asesor" name="asesor" class="form-input" placeholder="Digite el Nit para cargar el nombre del asesor comercial...">
             </div>
 
           </div>
@@ -86,7 +86,10 @@
                 </div>
             </div>
         </section>
-<!-- LISTA DE VERIFICACIÓN -->
+
+<!-- ============================================ -->
+<!-- LISTA DE VERIFICACIÓN (REORGANIZADA) -->
+<!-- ============================================ -->
 <section class="info_basica">
   <h3>LISTA DE VERIFICACIÓN</h3>
   <div class="info_basica_recuadro2">
@@ -179,135 +182,147 @@
 
       </div>
     </div>
+<br>
+    <!-- ===================== -->
+    <!-- CANALES DIGITALES -->
+    <!-- ===================== -->
+    <div class="check-bloque">
+      <div class="check-header">
+        <strong>CANALES DIGITALES</strong>
+      </div>
+
+      <div class="canales-container" style="padding: 20px 0; border: none; background: none;">
+        <!-- Primera fila: Clave Empresarial -->
+        <div class="canal-row">
+          <div class="canal-item">
+            <span class="canal-label">Clave Empresarial Portal WEB</span>
+            <div class="radio-group">
+              <label class="radio-label">
+                <input type="radio" name="claveEmpresarial" value="si" class="radio-input">
+                <span>SI</span>
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="claveEmpresarial" value="no" class="radio-input">
+                <span>NO</span>
+              </label>
+            </div>
+          </div>
+          <div class="observacion-item">
+            <label for="obsClaveEmpresarial">Observaciones</label>
+            <textarea id="obsClaveEmpresarial" name="obsClaveEmpresarial" class="observacion-input" rows="2" placeholder="Asignación, Actualización, Eliminación..."></textarea>
+          </div>
+        </div>
+
+        <!-- Segunda fila: Asesoría General -->
+        <div class="canal-row">
+          <div class="canal-item">
+            <span class="canal-label">Asesoría General Portal WEB</span>
+          </div>
+          <div class="observacion-item">
+            <label for="obsAsesoriaGeneral">Observaciones</label>
+            <textarea id="obsAsesoriaGeneral" name="obsAsesoriaGeneral" class="observacion-input" rows="2" placeholder="Ya Pagaste, Líquide y pague CES - PV, retiros y aprobación CES, consolidaciones PV, seguimiento a tramites de pensión, certificados, etc..."></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================== -->
+    <!-- ACTUALIZACIÓN DE DATOS -->
+    <!-- ========================== -->
+    <div class="check-bloque">
+      <div class="check-header">
+        <strong>ACTUALIZACIÓN DE DATOS</strong>
+      </div>
+      <div class="radio-group" style="padding-top: 10px;">
+        <label class="radio-label">
+          <input type="radio" name="actualizacionDatos" value="si" class="radio-input">
+          <span>SI</span>
+        </label>
+        <label class="radio-label">
+          <input type="radio" name="actualizacionDatos" value="no" class="radio-input">
+          <span>NO</span>
+        </label>
+        <label class="radio-label">
+          <input type="radio" name="actualizacionDatos" value="noAplica" class="radio-input">
+          <span>No Aplica</span>
+        </label>
+      </div>
+    </div>
+<br>
+    <!-- ================================ -->
+    <!-- CASOS PENDIENTES DE GESTIÓN (PQR) -->
+    <!-- ================================ -->
+    <div class="check-bloque">
+      <label class="check-header">
+        <input type="checkbox" id="checkCasosPendientes" onchange="toggleObservacion('checkCasosPendientes', 'obsCasosPendientes')">
+        Casos Pendientes de Gestión (PQR)
+      </label>
+      <textarea id="obsCasosPendientes" class="check-textarea" placeholder="Escriba sus observaciones aquí..."></textarea>
+    </div>
 
   </div>
 </section>
 
-
- <section class="info_basica">
-            <h3>CANALES DIGITALES</h3>
-            <div class="canales-container">
-                <!-- Primera fila: Clave Empresarial con SI/NO -->
-                <div class="canal-row">
-                    <div class="canal-item">
-                        <span class="canal-label">Clave Empresarial</span>
-                        <div class="radio-group">
-                            <label class="radio-label">
-                                <input type="radio" name="claveEmpresarial" value="si" class="radio-input">
-                                <span>SI</span>
-                            </label>
-                            <label class="radio-label">
-                                <input type="radio" name="claveEmpresarial" value="no" class="radio-input">
-                                <span>NO</span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="observacion-item">
-                        <label for="obsClaveEmpresarial">Observaciones</label>
-                        <textarea id="obsClaveEmpresarial" name="obsClaveEmpresarial" class="observacion-input" rows="2" placeholder="Asignación, Actualización, Eliminación..."></textarea>
-                    </div>
-                </div>
-
-                <!-- Segunda fila: Asesoría General sin check -->
-                <div class="canal-row">
-                    <div class="canal-item">
-                        <span class="canal-label">Asesoría General Portal WEB</span>
-                    </div>
-                    <div class="observacion-item">
-                        <label for="obsAsesoriaGeneral">Observaciones</label>
-                        <textarea id="obsAsesoriaGeneral" name="obsAsesoriaGeneral" class="observacion-input" rows="2" placeholder="Ya Pagaste, Líquide y pague CES - PV, retiros y aprobación CES, consolidaciones PV, seguimiento a tramites de pensión, certificados, etc..."></textarea>
-                    </div>
-                </div>
-            </div>
-        </section>
-              <section class="info_basica">
-                  <h3>ACTUALIZACIÓN DE DATOS</h3>
-                  <div class="info_basica_recuadro">
-                      <div class="radio-group">
-                          <label class="radio-label">
-                              <input type="radio" name="actualizacionDatos" value="si" class="radio-input">
-                              <span>SI</span>
-                          </label>
-                          <label class="radio-label">
-                              <input type="radio" name="actualizacionDatos" value="no" class="radio-input">
-                              <span>NO</span>
-                          </label>
-                          <label class="radio-label">
-                              <input type="radio" name="actualizacionDatos" value="noAplica" class="radio-input">
-                              <span>No Aplica</span>
-                          </label>
-                      </div>
-                  </div>
-              </section>
-              <section class="info_basica">
-            <h3>TEMAS GENERALES</h3>
-            <div class="info_basica_recuadro2">
-                <div class="check-bloque">
-                    <label class="check-header">
-                        <input type="checkbox" id="checkCasosPendientes" onchange="toggleObservacion('checkCasosPendientes', 'obsCasosPendientes')">
-                        Casos Pendientes de Gestión (PQR)
-                    </label>
-                    <textarea id="obsCasosPendientes" class="check-textarea" placeholder="Escriba sus observaciones aquí..."></textarea>
-                </div>
-
-                <div class="check-bloque">
-                    <label class="check-header">
-                        <input type="checkbox" id="checkCompromisosEmpleador" onchange="toggleObservacion('checkCompromisosEmpleador', 'obsCompromisosEmpleador')">
-                        Compromisos Empleador
-                    </label>
-                    <textarea id="obsCompromisosEmpleador" class="check-textarea" placeholder="Escriba sus observaciones aquí..."></textarea>
-                </div>
-
-                <div class="check-bloque">
-                    <label class="check-header">
-                        <input type="checkbox" id="checkCompromisosProteccion" onchange="toggleObservacion('checkCompromisosProteccion', 'obsCompromisosProteccion')">
-                        Compromisos Protección
-                    </label>
-                    <textarea id="obsCompromisosProteccion" class="check-textarea" placeholder="Escriba sus observaciones aquí..."></textarea>
-                </div>
-            </div>
-        </section>
-
+<!-- ============================================ -->
+<!-- CONCLUSIONES (NUEVA SECCIÓN) -->
+<!-- ============================================ -->
 <section class="info_basica">
-    <h3>AGENDAMIENTO</h3>
-    <div class="info_basica_recuadro2">
-        <div class="check-bloque">
-            <div class="check-header" style="margin-bottom: 12px;">
-                Nuevo Agendamiento
-            </div>
-            
-            <div class="radio-group" style="margin-bottom: 20px;">
-                <label class="radio-label">
-                    <input type="radio" name="proximoEncuentro" value="si" class="radio-input">
-                    <span>SÍ</span>
-                </label>
-                <label class="radio-label">
-                    <input type="radio" name="proximoEncuentro" value="no" class="radio-input" checked>
-                    <span>NO</span>
-                </label>
-            </div>
-
-            <div id="proximoObservacionContainer" class="proximo-obs">
-                <label for="obsProximoEncuentro">
-                    Detalle del próximo encuentro / observaciones
-                </label>
-                <textarea 
-                    id="obsProximoEncuentro" 
-                    class="observacion-input" 
-                    placeholder="Fecha tentativa, lugar/medio, hora aproximada, temas principales, responsable..."
-                    rows="3"
-                    maxlength="1200"
-                ></textarea>
-            </div>
-        </div>
-    </div>
-</section>
-<section class="info_basica">
-  <h3>Encuesta de Satisfacción</h3>
+  <h3>CONCLUSIONES</h3>
   <div class="info_basica_recuadro2">
+
+    <!-- Compromisos Empleador -->
+    <div class="check-bloque">
+      <label class="check-header">
+        <input type="checkbox" id="checkCompromisosEmpleador" onchange="toggleObservacion('checkCompromisosEmpleador', 'obsCompromisosEmpleador')">
+        Compromisos Empleador
+      </label>
+      <textarea id="obsCompromisosEmpleador" class="check-textarea" placeholder="Escriba sus observaciones aquí..."></textarea>
+    </div>
+
+    <!-- Compromisos Protección -->
+    <div class="check-bloque">
+      <label class="check-header">
+        <input type="checkbox" id="checkCompromisosProteccion" onchange="toggleObservacion('checkCompromisosProteccion', 'obsCompromisosProteccion')">
+        Compromisos Protección
+      </label>
+      <textarea id="obsCompromisosProteccion" class="check-textarea" placeholder="Escriba sus observaciones aquí..."></textarea>
+    </div>
+<br>
+    <!-- Agendamiento -->
     <div class="check-bloque">
       <div class="check-header" style="margin-bottom: 12px;">
-        ¿El empleador contestó la encuesta de satisfacción?
+        <strong>Nuevo Agendamiento</strong>
+      </div>
+      
+      <div class="radio-group" style="margin-bottom: 20px;">
+        <label class="radio-label">
+          <input type="radio" name="proximoEncuentro" value="si" class="radio-input">
+          <span>SÍ</span>
+        </label>
+        <label class="radio-label">
+          <input type="radio" name="proximoEncuentro" value="no" class="radio-input" checked>
+          <span>NO</span>
+        </label>
+      </div>
+
+      <div id="proximoObservacionContainer" class="proximo-obs">
+        <label for="obsProximoEncuentro">
+          Detalle del próximo encuentro / observaciones
+        </label>
+        <textarea 
+          id="obsProximoEncuentro" 
+          class="observacion-input" 
+          placeholder="Fecha tentativa, lugar/medio, hora aproximada, temas principales, responsable..."
+          rows="3"
+          maxlength="1200"
+        ></textarea>
+      </div>
+    </div>
+
+    <!-- Encuesta de Satisfacción -->
+    <div class="check-bloque">
+      <div class="check-header" style="margin-bottom: 12px;">
+        <strong>¿El empleador contestó la encuesta de satisfacción?</strong>
       </div>
 
       <div class="radio-group">
@@ -321,8 +336,10 @@
         </label>
       </div>
     </div>
+
   </div>
 </section>
+
 <section class="firmas">
   <div class="grupo_firmas">
         <div class="firmas1"></div>
@@ -334,7 +351,7 @@
           <p>* Firma Rep. Empresa</p>
         </div>
   </div>
-    <p><strong>* la firma del documento no es de caracter obligatorio</strong></p>
+    <p><strong>* la firma del documento es opcional</strong></p>
   </div>
 </section>
 
