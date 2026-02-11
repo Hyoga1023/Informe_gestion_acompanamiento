@@ -10,77 +10,78 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
     <title>Informe de Gestión Protección</title>
-<header>
-  <div class="header-title0">
-    <button class="hamburger" id="hamburgerBtn" aria-label="Menú">
-      ☰
-    </button>
+</head>
+<body>
+  <header>
+    <div class="header-title0">
+      <button class="hamburger" id="hamburgerBtn" aria-label="Menú">
+        ☰
+      </button>
 
-    <nav class="menu-panel" id="menuPanel">
-      <a href="https://www.proteccion.com/contenidos/personas/">Inicio Protección</a>
-      <a href="https://www.proteccion.com/portalafiliados/afiliados/certifacil#/certificados">Certificados</a>
-      <a href="https://gestorplanillas.proteccion.com.co:8650/">Gestor de planillas</a>
-      <a href="#">Canales de atención</a>
-      <a href="https://teams.microsoft.com/l/chat/0/0?users=cesar.martinez@proteccion.com.co">Soporte</a>
-    </nav>
-  </div>
+      <nav class="menu-panel" id="menuPanel">
+        <a href="https://www.proteccion.com/contenidos/personas/">Inicio Protección</a>
+        <a href="https://www.proteccion.com/portalafiliados/afiliados/certifacil#/certificados">Certificados</a>
+        <a href="https://gestorplanillas.proteccion.com.co:8650/">Gestor de planillas</a>
+        <a href="carga_base.html">Cargar Base de Datos</a>
+        <a href="https://teams.microsoft.com/l/chat/0/0?users=cesar.martinez@proteccion.com.co">Soporte</a>
+      </nav>
+    </div>
 
-  <div class="header-title1">
-    <h1>Informe de Gestión Acompañamiento</h1>
-  </div>
+    <div class="header-title1">
+      <h1>Informe de Gestión Acompañamiento</h1>
+    </div>
 
-  <div class="header-title2">
-    <a href="https://www.proteccion.com/contenidos/personas/" class="logo-link">
-      <h2 class="header-title2">Protección</h2>
-    </a>
-  </div>
-</header>
+    <div class="header-title2">
+      <a href="https://www.proteccion.com/contenidos/personas/" class="logo-link">
+        <h2 class="header-title2">Protección</h2>
+      </a>
+    </div>
+  </header>
 
     <main>
         <section class="info_basica">
-            <h3>INFORMACIÓN BASICA</h3>
-            <div class="info_basica_recuadro">
-                <div class="form-group form-group-small">
-                    <label for="fecha">Fecha de Acompañamiento</label>
-                    <input type="date" id="fecha" name="fecha" class="form-input">
-                </div>
-                <div class="form-group form-group-small">
-                    <label for="nit">NIT</label>
-                    <input type="text" id="nit" name="nit" class="form-input" placeholder="Ej: 800123456">
-                </div>
-                <div class="form-group form-group-large">
-                    <label for="empresa">Razón Social</label>
-                    <input type="text" id="empresa" name="empresa" class="form-input" readonly placeholder="Se llenará automáticamente...">
-                </div>
+          <h3>INFORMACIÓN BÁSICA</h3>
+          <div class="info_basica_recuadro">
+
+            <div class="form-group form-group-small">
+              <label for="fecha">Fecha de Acompañamiento</label>
+              <input type="date" id="fecha" name="fecha" class="form-input">
             </div>
+
+            <div class="form-group form-group-small">
+              <label for="nit">NIT</label>
+              <input type="text" id="nit" name="nit" class="form-input" placeholder="Ej: 800123456">
+            </div>
+
+            <div class="form-group form-group-large">
+              <label for="empresa">Razón Social</label>
+              <input type="text" id="empresa" name="empresa" class="form-input" readonly placeholder="Se llenará automáticamente...">
+            </div>
+
+            <div class="form-group form-group-large asesor">
+              <label for="asesor">Asesor Comercial</label>
+              <input type="text" id="asesor" name="asesor" class="form-input" placeholder="Nombre del asesor">
+            </div>
+
+          </div>
         </section>
         <section class="info_basica">
             <h3>ASISTENTES</h3>
             <div class="info_basica_recuadro2"> 
                 <div class="form-group form-group-large">
-                <label for="representante">Representante Empresa</label>
-                <input type="text" id="representante" name="representante" class="form-input" placeholder="Nombre del representante">
+                    <label for="representante">Representante Empresa</label>
+                    <input type="text" id="representante" name="representante" class="form-input" placeholder="Nombre del representante">
                 </div>
                 <div class="ejecutivo">
                     <div class="form-group form-group-large">
-                    <label for="nombreEjecutivo">Ejecutivo Asistencia Empresarial</label>
-                    <select id="nombreEjecutivo" name="nombreEjecutivo" class="form-input form-select">
-                        <option value="">Seleccione un ejecutivo...</option>
-                        <option value="ejecutivo1">Rene Francisco Higuita</option>
-                        <option value="ejecutivo2">Diego Armando Maradona</option>
-                        <option value="ejecutivo3">Oscar Cordoba</option>
-                        <option value="ejecutivo4">Carlos Valderrama</option>
-                    </select>
+                        <label for="nombreEjecutivo">Ejecutivo Asistencia Empresarial Protección</label>
+                        <select id="nombreEjecutivo" name="nombreEjecutivo" class="form-input form-select">
+                            <option value="">Seleccione un ejecutivo...</option>
+                        </select>
                     </div>
                     <div class="form-group form-group-large">
-                    <label for="emailEjecutivo">E-mail Ejecutivo</label>
-                    <select id="emailEjecutivo" name="emailEjecutivo" class="form-input form-select">
-                        <option value="">Seleccione un correo...</option>
-                        <option value="juan.perez@proteccion.com">rene.higuita@proteccion.com.co</option>
-                        <option value="maria.gonzalez@proteccion.com">diego.maradona@proteccion.com.co</option>
-                        <option value="carlos.rodriguez@proteccion.com">oscar.cordoba@proteccion.com.co</option>
-                        <option value="ana.martinez@proteccion.com">carlos.elpibevalderrama@proteccion.com.co</option>
-                    </select>
+                        <label for="emailEjecutivo">E-mail Ejecutivo</label>
+                        <input type="email" id="emailEjecutivo" name="emailEjecutivo" class="form-input" readonly placeholder="Correo electrónico">
                     </div>
                 </div>
             </div>
@@ -90,20 +91,16 @@
   <h3>LISTA DE VERIFICACIÓN</h3>
   <div class="info_basica_recuadro2">
 
-    <!-- ===================== -->
+    <!-- ===================== --> 
     <!-- GESTIÓN DE DEUDAS PO -->
     <!-- ===================== -->
     <div class="check-bloque">
       <div class="check-header">
-        <label>
-          <input type="checkbox" id="chkDeuda" />
-          <strong>GESTIÓN DE DEUDAS (PO)</strong>
-        </label>
+        <strong>GESTIÓN DE DEUDAS (PO)</strong>
       </div>
 
       <div class="check-contenido" id="deudaContenido">
 
-        <!-- Deuda Presunta -->
         <div class="check-item">
           <label>
             <input type="checkbox" class="subcheck" />
@@ -111,9 +108,8 @@
           </label>
           <input type="text" class="valor-input moneda" id="valorDeudaPresunta" placeholder="$ 0" disabled>
         </div>
-        <textarea id="obsDeudaPresunta" class="check-textarea" placeholder="Observación (máx 200 palabras)..." maxlength="1200"></textarea>
+        <textarea id="obsDeudaPresunta" class="check-textarea" placeholder="Observación..." maxlength="1200"></textarea>
 
-        <!-- Deuda Real -->
         <div class="check-item">
           <label>
             <input type="checkbox" class="subcheck" />
@@ -121,7 +117,7 @@
           </label>
           <input type="text" class="valor-input moneda" id="valorDeudaReal" placeholder="$ 0" disabled>
         </div>
-        <textarea id="obsDeudaReal" class="check-textarea" placeholder="Observación (máx 200 palabras)..." maxlength="1200"></textarea>
+        <textarea id="obsDeudaReal" class="check-textarea" placeholder="Observación..." maxlength="1200"></textarea>
 
       </div>
     </div>
@@ -131,10 +127,7 @@
     <!-- ======================================== -->
     <div class="check-bloque">
       <div class="check-header">
-        <label>
-          <input type="checkbox" id="chkInconsistencias" />
-          <strong>GESTIÓN DE INCONSISTENCIAS (PO, PV Y CES)</strong>
-        </label>
+        <strong>GESTIÓN DE INCONSISTENCIAS (PO, PV Y CES)</strong>
       </div>
 
       <div class="check-contenido" id="inconsistenciasContenido">
@@ -146,7 +139,7 @@
           </label>
           <input type="text" class="valor-input moneda" id="valorPagosPO" placeholder="$ 0" disabled>
         </div>
-        <textarea id="obsPagosPO" class="check-textarea" placeholder="Observación (máx 200 palabras)..." maxlength="1200"></textarea>
+        <textarea id="obsPagosPO" class="check-textarea" placeholder="Observación..." maxlength="1200"></textarea>
 
         <div class="check-item resaltado">
           <label>
@@ -155,7 +148,7 @@
           </label>
           <input type="text" class="valor-input moneda" id="valorAportesPO" placeholder="$ 0" disabled>
         </div>
-        <textarea id="obsAportesPO" class="check-textarea" placeholder="Observación (máx 200 palabras)..." maxlength="1200"></textarea>
+        <textarea id="obsAportesPO" class="check-textarea" placeholder="Observación..." maxlength="1200"></textarea>
 
         <div class="check-item">
           <label>
@@ -164,7 +157,7 @@
           </label>
           <input type="text" class="valor-input moneda" id="valorPagosCES" placeholder="$ 0" disabled>
         </div>
-        <textarea id="obsPagosCES" class="check-textarea" placeholder="Observación (máx 200 palabras)..." maxlength="1200"></textarea>
+        <textarea id="obsPagosCES" class="check-textarea" placeholder="Observación..." maxlength="1200"></textarea>
 
         <div class="check-item">
           <label>
@@ -173,7 +166,7 @@
           </label>
           <input type="text" class="valor-input moneda" id="valorPagosPV" placeholder="$ 0" disabled>
         </div>
-        <textarea id="obsPagosPV" class="check-textarea" placeholder="Observación (máx 200 palabras)..." maxlength="1200"></textarea>
+        <textarea id="obsPagosPV" class="check-textarea" placeholder="Observación..." maxlength="1200"></textarea>
 
         <div class="check-item resaltado">
           <label>
@@ -182,7 +175,7 @@
           </label>
           <input type="text" class="valor-input moneda" id="valorAportesPV" placeholder="$ 0" disabled>
         </div>
-        <textarea id="obsAportesPV" class="check-textarea" placeholder="Observación (máx 200 palabras)..." maxlength="1200"></textarea>
+        <textarea id="obsAportesPV" class="check-textarea" placeholder="Observación..." maxlength="1200"></textarea>
 
       </div>
     </div>
@@ -190,13 +183,14 @@
   </div>
 </section>
 
+
  <section class="info_basica">
             <h3>CANALES DIGITALES</h3>
             <div class="canales-container">
                 <!-- Primera fila: Clave Empresarial con SI/NO -->
                 <div class="canal-row">
                     <div class="canal-item">
-                        <span class="canal-label">Clave Empresarial SI / NO</span>
+                        <span class="canal-label">Clave Empresarial</span>
                         <div class="radio-group">
                             <label class="radio-label">
                                 <input type="radio" name="claveEmpresarial" value="si" class="radio-input">
@@ -377,6 +371,7 @@
     <script src="observaciones.js"></script>
     <script src="botones_finales.js"></script>
     <script src="hamburguesa.js"></script>
-    <script src="Autocompletar.js"></script>
+    <script src="ejecutivos.js"></script>
+    <script src="autocompletar.js"></script>
 </body>
 </html>

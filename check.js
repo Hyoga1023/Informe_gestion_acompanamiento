@@ -1,26 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  // ────────────────────────────────────────────────
-  // Gestión de deudas e inconsistencias (bloques expandibles)
-  // ────────────────────────────────────────────────
-  const chkDeuda = document.getElementById("chkDeuda");
-  const chkInconsistencias = document.getElementById("chkInconsistencias");
-  const deudaContenido = document.getElementById("deudaContenido");
-  const inconsistenciasContenido = document.getElementById("inconsistenciasContenido");
-
-  if (chkDeuda && deudaContenido) {
-    chkDeuda.addEventListener("change", () => {
-      deudaContenido.style.display = chkDeuda.checked ? "flex" : "none";
-    });
-  }
-
-  if (chkInconsistencias && inconsistenciasContenido) {
-    chkInconsistencias.addEventListener("change", () => {
-      inconsistenciasContenido.style.display = chkInconsistencias.checked ? "flex" : "none";
-    });
-  }
-
-  // ────────────────────────────────────────────────
+   // ────────────────────────────────────────────────
   // Subchecks → habilitar valor + textarea
   // ────────────────────────────────────────────────
   document.querySelectorAll(".subcheck").forEach(check => {

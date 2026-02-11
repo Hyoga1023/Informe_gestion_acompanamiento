@@ -1,249 +1,324 @@
-// ═══════════════════════════════════════════════════════════
-// SISTEMA DE AUTOCOMPLETADO DE EMPLEADORES POR NIT
-// ═══════════════════════════════════════════════════════════
+/**
+ * SISTEMA DE AUTOCOMPLETADO DE DATOS DE EMPLEADORES
+ */
 
-let empleadoresDB = null;
+// Inicializar localForage
+localforage.config({
+    name: 'ProteccionDB',
+    storeName: 'empleadores'
+});
 
-// ────────────────────────────────────────────────
-// 1. CARGAR BASE DE DATOS AL INICIAR
-// ────────────────────────────────────────────────
-async function cargarEmpleadores() {
-  try {
-    const response = await fetch('empleadores.json');
-    if (!response.ok) {
-      throw new Error('No se pudo cargar la base de datos');
+// Referencias a los campos del formulario
+const inputNIT = document.getElementById('nit');
+const inputEmpresa = document.getElementById('empresa');
+const inputAsesor = document.getElementById('asesor');
+
+// Variable para almacenar la base de datos en memoria (cache)
+let baseEmpleadores = null;
+
+/**
+ * Cargar la base de datos en memoria al iniciar
+ */
+async function cargarBaseEnMemoria() {
+    try {
+        baseEmpleadores = await localforage.getItem('baseEmpleadores');
+        
+        if (!baseEmpleadores) {
+            console.warn('⚠️ No hay base de datos de empleadores cargada');
+            console.log('💡 Ve a "Cargar Base de Datos" en el menú para subir el archivo JSON');
+            return false;
+        }
+        
+        const cantidad = Object.keys(baseEmpleadores).length;
+        console.log(`✅ Base de empleadores cargada en memoria: ${cantidad} registros`);
+        return true;
+        
+    } catch (error) {
+        console.error('❌ Error al cargar base de empleadores:', error);
+        return false;
     }
-    const data = await response.json();
-    empleadoresDB = data.empleadores;
-    console.log('✅ Base de datos cargada:', empleadoresDB.length, 'empleadores');
-  } catch (error) {
-    console.error('❌ Error cargando empleadores:', error);
-    alert('No se pudo cargar la base de datos de empleadores. Podrás llenar los campos manualmente.');
-  }
 }
 
-// ────────────────────────────────────────────────
-// 2. BUSCAR EMPLEADOR POR NIT
-// ────────────────────────────────────────────────
-function buscarPorNIT(nit) {
-  if (!empleadoresDB) {
-    console.warn('⚠️ Base de datos no cargada');
-    return null;
-  }
-
-  // Limpiar el NIT ingresado (quitar espacios, guiones, etc)
-  const nitLimpio = nit.replace(/[^0-9]/g, '');
-  
-  // Buscar coincidencia
-  return empleadoresDB.find(emp => {
-    const nitDBLimpio = emp.nit.replace(/[^0-9]/g, '');
-    return nitDBLimpio === nitLimpio;
-  });
+/**
+ * Limpia el NIT quitando espacios, guiones y caracteres especiales
+ */
+function limpiarNIT(nit) {
+    return nit.toString().replace(/[\s\-]/g, '').trim();
 }
 
-// ────────────────────────────────────────────────
-// 3. AUTOCOMPLETAR SOLO RAZÓN SOCIAL
-// ────────────────────────────────────────────────
-function autocompletarEmpleador(empleador) {
-  if (!empleador) {
-    console.log('ℹ️ No se encontró empleador');
-    return;
-  }
-
-  // Solo llenar el campo de razón social
-  const campoEmpresa = document.getElementById('empresa');
-  
-  if (campoEmpresa) {
-    campoEmpresa.value = empleador.razonSocial;
+/**
+ * Busca un empleador por NIT en la base de datos
+ */
+function buscarEmpleador(nit) {
+    if (!baseEmpleadores) {
+        console.warn('Base de datos no disponible');
+        return null;
+    }
     
-    // Efecto visual de "llenado automático"
-    campoEmpresa.style.backgroundColor = '#e8f5e9';
-    campoEmpresa.style.transition = 'background-color 0.3s ease';
+    const nitLimpio = limpiarNIT(nit);
+    return baseEmpleadores[nitLimpio] || null;
+}
+
+/**
+ * Formatea el NIT mientras el usuario escribe (opcional)
+ */
+function formatearNIT(nit) {
+    const soloNumeros = nit.replace(/\D/g, '');
+    
+    if (soloNumeros.length <= 3) {
+        return soloNumeros;
+    }
+    
+    const partes = [];
+    let temp = soloNumeros;
+    
+    while (temp.length > 3) {
+        partes.unshift(temp.slice(-3));
+        temp = temp.slice(0, -3);
+    }
+    
+    if (temp) {
+        partes.unshift(temp);
+    }
+    
+    return partes.join('-');
+}
+
+/**
+ * Autocompleta los campos de empresa y asesor
+ */
+function autocompletarDatos(empleador) {
+    if (!empleador) {
+        inputEmpresa.value = '';
+        inputAsesor.value = '';
+        
+        inputEmpresa.removeAttribute('readonly');
+        inputAsesor.removeAttribute('readonly');
+        
+        inputEmpresa.style.backgroundColor = '#fff3cd';
+        inputAsesor.style.backgroundColor = '#fff3cd';
+        
+        return;
+    }
+    
+    // 🔥 Aquí ya no hay que cambiar nada porque ya vienen normalizados
+    inputEmpresa.value = empleador.razonSocial;
+    inputAsesor.value = empleador.asesorComercial;
+    
+    inputEmpresa.setAttribute('readonly', 'true');
+    inputAsesor.setAttribute('readonly', 'true');
+    
+    inputEmpresa.style.backgroundColor = '#d4edda';
+    inputAsesor.style.backgroundColor = '#d4edda';
     
     setTimeout(() => {
-      campoEmpresa.style.backgroundColor = '';
+        inputEmpresa.style.backgroundColor = '';
+        inputAsesor.style.backgroundColor = '';
     }, 1500);
-  }
-
-  console.log('✅ Razón social autocompletada:', empleador.razonSocial);
-  
-  // Mostrar mensaje de éxito
-  mostrarMensajeAutocompletado(empleador.razonSocial);
-}
-
-// ────────────────────────────────────────────────
-// 4. MENSAJE VISUAL DE ÉXITO
-// ────────────────────────────────────────────────
-function mostrarMensajeAutocompletado(razonSocial) {
-  // Crear mensaje temporal
-  const mensaje = document.createElement('div');
-  mensaje.textContent = `✅ Datos cargados: ${razonSocial}`;
-  mensaje.style.cssText = `
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background-color: #4CAF50;
-    color: white;
-    padding: 15px 25px;
-    border-radius: 8px;
-    font-weight: 600;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    z-index: 9999;
-    animation: slideIn 0.3s ease;
-  `;
-
-  document.body.appendChild(mensaje);
-
-  // Auto-eliminar después de 3 segundos
-  setTimeout(() => {
-    mensaje.style.opacity = '0';
-    mensaje.style.transition = 'opacity 0.5s';
-    setTimeout(() => mensaje.remove(), 500);
-  }, 3000);
-}
-
-// ────────────────────────────────────────────────
-// 5. LISTENER DEL CAMPO NIT
-// ────────────────────────────────────────────────
-function configurarBusquedaNIT() {
-  const campoNIT = document.getElementById('nit');
-  
-  if (!campoNIT) {
-    console.warn('⚠️ No se encontró el campo NIT en el formulario');
-    return;
-  }
-
-  // Búsqueda cuando pierde el foco (blur)
-  campoNIT.addEventListener('blur', function() {
-    const nit = this.value.trim();
     
-    if (nit.length < 8) {
-      console.log('ℹ️ NIT muy corto para buscar');
-      return;
-    }
+    console.log(`✅ Datos autocompletados para NIT: ${empleador.nit}`);
+}
 
-    const empleador = buscarPorNIT(nit);
+/**
+ * Maneja el evento de cambio en el campo NIT
+ */
+async function manejarCambioNIT() {
+    const nit = inputNIT.value.trim();
+    
+    if (!nit) {
+        autocompletarDatos(null);
+        return;
+    }
+    
+    const empleador = buscarEmpleador(nit);
     
     if (empleador) {
-      autocompletarEmpleador(empleador);
+        autocompletarDatos(empleador);
     } else {
-      console.log('ℹ️ NIT no encontrado en la base de datos');
-      // Opcional: mostrar mensaje
-      const mensaje = document.createElement('div');
-      mensaje.textContent = 'ℹ️ NIT no encontrado';
-      mensaje.style.cssText = `
+        autocompletarDatos(null);
+        
+        if (limpiarNIT(nit).length >= 6) {
+            console.log(`⚠️ No se encontró empleador con NIT: ${nit}`);
+            mostrarTooltip(inputNIT, 'NIT no encontrado en la base de datos');
+        }
+    }
+}
+
+/**
+ * Muestra un tooltip temporal en un elemento
+ */
+function mostrarTooltip(elemento, mensaje) {
+    const tooltip = document.createElement('div');
+    tooltip.textContent = mensaje;
+    tooltip.style.cssText = `
+        position: absolute;
+        background: #f8d7da;
+        color: #721c24;
+        padding: 8px 12px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-family: Ubuntu, sans-serif;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        z-index: 1000;
+        white-space: nowrap;
+        pointer-events: none;
+    `;
+    
+    const rect = elemento.getBoundingClientRect();
+    tooltip.style.left = `${rect.left}px`;
+    tooltip.style.top = `${rect.bottom + 5}px`;
+    
+    document.body.appendChild(tooltip);
+    
+    setTimeout(() => {
+        tooltip.style.transition = 'opacity 0.3s';
+        tooltip.style.opacity = '0';
+        setTimeout(() => tooltip.remove(), 300);
+    }, 3000);
+}
+
+/**
+ * Agrega sugerencias mientras el usuario escribe
+ */
+function buscarSugerencias(nitParcial) {
+    if (!baseEmpleadores || nitParcial.length < 3) {
+        return [];
+    }
+    
+    const nitLimpio = limpiarNIT(nitParcial);
+    const sugerencias = [];
+    
+    for (const nit in baseEmpleadores) {
+        if (nit.startsWith(nitLimpio)) {
+            sugerencias.push(baseEmpleadores[nit]);
+            if (sugerencias.length >= 5) break;
+        }
+    }
+    
+    return sugerencias;
+}
+
+/**
+ * Muestra un datalist con sugerencias
+ */
+function actualizarSugerencias() {
+    const nit = inputNIT.value.trim();
+    
+    if (nit.length < 3) {
+        return;
+    }
+    
+    const sugerencias = buscarSugerencias(nit);
+    
+    let datalist = document.getElementById('nitSugerencias');
+    
+    if (!datalist) {
+        datalist = document.createElement('datalist');
+        datalist.id = 'nitSugerencias';
+        inputNIT.setAttribute('list', 'nitSugerencias');
+        inputNIT.parentElement.appendChild(datalist);
+    }
+    
+    datalist.innerHTML = '';
+    
+    sugerencias.forEach(empleador => {
+        const option = document.createElement('option');
+        option.value = empleador.nit;
+        option.textContent = `${empleador.nit} - ${empleador.razonSocial}`;
+        datalist.appendChild(option);
+    });
+}
+
+/**
+ * Permite edición manual de los campos si el usuario hace doble clic
+ */
+function permitirEdicionManual(campo) {
+    campo.removeAttribute('readonly');
+    campo.style.backgroundColor = '#fff3cd';
+    campo.focus();
+    
+    const mensaje = document.createElement('div');
+    mensaje.textContent = '⚠️ Editando manualmente';
+    mensaje.style.cssText = `
         position: fixed;
         top: 20px;
         right: 20px;
-        background-color: #FF9800;
-        color: white;
-        padding: 15px 25px;
-        border-radius: 8px;
-        font-weight: 500;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        z-index: 9999;
-      `;
-      document.body.appendChild(mensaje);
-      setTimeout(() => {
-        mensaje.style.opacity = '0';
-        mensaje.style.transition = 'opacity 0.5s';
-        setTimeout(() => mensaje.remove(), 500);
-      }, 3000);
-    }
-  });
-
-  // También buscar al presionar Enter
-  campoNIT.addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      this.blur(); // Trigger el evento blur
-    }
-  });
-
-  console.log('✅ Sistema de búsqueda por NIT configurado');
+        background: #fff3cd;
+        color: #856404;
+        padding: 10px 15px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-family: Ubuntu, sans-serif;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        z-index: 1000;
+    `;
+    
+    document.body.appendChild(mensaje);
+    setTimeout(() => mensaje.remove(), 2000);
 }
 
-// ────────────────────────────────────────────────
-// 6. BOTÓN DE BÚSQUEDA MANUAL (OPCIONAL)
-// ────────────────────────────────────────────────
-function crearBotonBusqueda() {
-  const campoNIT = document.getElementById('nit');
-  if (!campoNIT) return;
-
-  // Crear botón
-  const boton = document.createElement('button');
-  boton.type = 'button';
-  boton.textContent = '🔍 Buscar';
-  boton.style.cssText = `
-    margin-left: 10px;
-    padding: 10px 20px;
-    background-color: var(--color-1);
-    color: var(--color-2);
-    border: 2px solid var(--color-2);
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  `;
-
-  boton.addEventListener('click', function() {
-    const nit = campoNIT.value.trim();
-    if (!nit) {
-      alert('Por favor ingresa un NIT');
-      return;
+/**
+ * Inicializar el sistema de autocompletado
+ */
+async function inicializarAutocompletado() {
+    const baseCargada = await cargarBaseEnMemoria();
+    
+    if (!baseCargada) {
+        console.warn('💡 Carga primero la base de datos usando el menú "Cargar Base de Datos"');
+        return;
     }
-    const empleador = buscarPorNIT(nit);
-    if (empleador) {
-      autocompletarEmpleador(empleador);
+    
+    inputNIT.addEventListener('blur', manejarCambioNIT);
+    
+    inputNIT.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            manejarCambioNIT();
+        }
+    });
+    
+    inputNIT.addEventListener('input', actualizarSugerencias);
+    
+    inputEmpresa.addEventListener('dblclick', () => permitirEdicionManual(inputEmpresa));
+    inputAsesor.addEventListener('dblclick', () => permitirEdicionManual(inputAsesor));
+    
+    console.log('✅ Sistema de autocompletado inicializado');
+}
+
+/**
+ * Función para verificar el estado de la base de datos
+ */
+async function verificarEstadoBase() {
+    const metadatos = await localforage.getItem('metadatosBase');
+    
+    if (metadatos) {
+        console.log('📊 Estado de la base de datos:');
+        console.log(`   - Empleadores: ${metadatos.cantidadEmpleadores}`);
+        console.log(`   - Fecha carga: ${new Date(metadatos.fechaCarga).toLocaleString('es-CO')}`);
+        console.log(`   - Archivo: ${metadatos.nombreArchivo}`);
+        return true;
     } else {
-      alert('NIT no encontrado en la base de datos');
+        console.log('⚠️ No hay base de datos cargada');
+        return false;
     }
-  });
-
-  // Insertar botón después del campo NIT
-  campoNIT.parentNode.appendChild(boton);
 }
 
-// ────────────────────────────────────────────────
-// 7. INICIALIZACIÓN
-// ────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', async function() {
-  console.log('🚀 Inicializando sistema de autocompletado...');
-  
-  // Cargar base de datos
-  await cargarEmpleadores();
-  
-  // Configurar listeners
-  configurarBusquedaNIT();
-  
-  // Crear botón de búsqueda (opcional)
-  // crearBotonBusqueda(); // Descomenta si quieres el botón
-  
-  console.log('✅ Sistema de autocompletado listo');
-});
-
-// ────────────────────────────────────────────────
-// 8. FUNCIONES AUXILIARES PARA DEBUGGING
-// ────────────────────────────────────────────────
-// Para probar en la consola:
-window.testBusqueda = function(nit) {
-  const empleador = buscarPorNIT(nit);
-  if (empleador) {
-    console.table(empleador);
-    autocompletarEmpleador(empleador);
-  } else {
-    console.log('❌ No encontrado');
-  }
+window.buscarEmpleadorDebug = function(nit) {
+    const empleador = buscarEmpleador(nit);
+    if (empleador) {
+        console.log('✅ Empleador encontrado:', empleador);
+    } else {
+        console.log('❌ Empleador no encontrado con NIT:', nit);
+    }
+    return empleador;
 };
 
-// Listar todos los NITs disponibles
-window.listarNITs = function() {
-  if (!empleadoresDB) {
-    console.log('Base de datos no cargada');
-    return;
-  }
-  console.log('📋 NITs disponibles:');
-  empleadoresDB.forEach(emp => {
-    console.log(`${emp.nit} → ${emp.razonSocial}`);
-  });
-};
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', inicializarAutocompletado);
+} else {
+    inicializarAutocompletado();
+}
+
+window.verificarEstadoBase = verificarEstadoBase;
+
+console.log('📦 Sistema de autocompletado cargado');
