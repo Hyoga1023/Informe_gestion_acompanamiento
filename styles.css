@@ -213,7 +213,7 @@ main h3{
 
 .form-input {
     width: 100%;
-    padding: 0.75rem 1rem; /* 👈 REDUCIDO de 0.875rem a 0.75rem */
+    padding: 0.75rem 1rem; 
     border: 2px solid #E0E0E0;
     border-radius: 8px;
     font-family: "Ubuntu", sans-serif;
@@ -230,10 +230,11 @@ main h3{
 }
 
 .form-input[readonly] {
-    background-color: #f5f5f5;
-    cursor: not-allowed;
-    color: #666;
+    background-color: var(--color-blanco);
+    cursor: default;
+    color: var(--color-2);
 }
+
 
 .form-input[type="text"]:hover,
 .form-input[type="date"]:hover {
@@ -255,10 +256,21 @@ main h3{
 .check-bloque {
   display: flex;
   flex-direction: column;
-  gap: 10px; /* 👈 REDUCIDO de 15px a 10px */
-  margin-bottom: 10px; /* 👈 NUEVO - Espacio entre bloques de check */
+  gap: 10px; 
+  margin-bottom: 10px; 
+}
+.form-input:-webkit-autofill,
+.form-input:-webkit-autofill:hover,
+.form-input:-webkit-autofill:focus,
+.form-input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px var(--color-blanco) inset !important;
+  -webkit-text-fill-color: var(--color-2) !important;
+  transition: background-color 9999s ease-out 0s;
 }
 
+.form-input::selection {
+  background: transparent;
+}
 .check-header {
   font-size: 1rem;
   font-weight: 600;
@@ -274,7 +286,7 @@ main h3{
 .check-contenido {
   display: flex;
   flex-direction: column;
-  gap: 10px; /* 👈 REDUCIDO de 12px a 10px */
+  gap: 10px; 
   padding-left: 20px;
 }
 
