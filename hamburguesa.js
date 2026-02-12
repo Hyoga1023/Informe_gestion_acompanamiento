@@ -1,13 +1,25 @@
 const hamburgerBtn = document.getElementById("hamburgerBtn");
 const menuPanel = document.getElementById("menuPanel");
 
-hamburgerBtn.addEventListener("click", (e) => {
-  e.stopPropagation();
-  menuPanel.style.display = menuPanel.style.display === "flex" ? "none" : "flex";
+let hideTimeout;
+
+hamburgerBtn.addEventListener("mouseenter", () => {
+  clearTimeout(hideTimeout);
+  menuPanel.classList.add("show");
 });
 
-document.addEventListener("click", (e) => {
-  if (!menuPanel.contains(e.target) && !hamburgerBtn.contains(e.target)) {
-    menuPanel.style.display = "none";
-  }
+hamburgerBtn.addEventListener("mouseleave", () => {
+  hideTimeout = setTimeout(() => {
+    menuPanel.classList.remove("show");
+  }, 300);
+});
+
+menuPanel.addEventListener("mouseenter", () => {
+  clearTimeout(hideTimeout);
+});
+
+menuPanel.addEventListener("mouseleave", () => {
+  hideTimeout = setTimeout(() => {
+    menuPanel.classList.remove("show");
+  }, 300);
 });

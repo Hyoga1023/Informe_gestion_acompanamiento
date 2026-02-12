@@ -87,23 +87,44 @@ header{
   border-radius: 10px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.2);
   padding: 15px 20px;
-  display: none;
+  display: flex;
   flex-direction: column;
   gap: 12px;
   min-width: 220px;
   z-index: 999;
-}
 
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
+}
 .menu-panel a {
   text-decoration: none;
-  color: var(--color-1);
+  color: #FFD700;
   font-weight: 500;
   font-size: 0.95rem;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: 
+    background 0.3s ease,
+    color 0.3s ease,
+    transform 0.2s ease;
 }
 
 .menu-panel a:hover {
-  text-decoration: underline;
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(5px);
+  text-decoration: none;
 }
+
+.menu-panel.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
 
 .header-title1{
     flex: 3;
@@ -719,6 +740,33 @@ footer img{
   50%  { color: #b388ff; }
   75%  { color: #ff8fa3; }
   100% { color: #ffffff; }
+}
+
+#btnTop {
+  position: fixed;
+  bottom: 30px;
+  left: 96%;
+  transform: translateX(-50%) translateY(10px);
+  background: rgba(0, 0, 0, 0.75);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 26px;
+  cursor: pointer;
+  z-index: 99999;
+  opacity: 0;
+  pointer-events: none;
+  transition: 
+    opacity 0.6s ease,
+    transform 0.6s ease;
+}
+
+#btnTop.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
 }
 
 
