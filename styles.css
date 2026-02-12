@@ -668,6 +668,58 @@ footer img{
     transform: translateY(0);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
+#live2d-widget {
+  position: fixed;
+  right: 10px;
+  bottom: 0;
+  z-index: 99999;
+  pointer-events: none;
+}
+.easter-text {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 88px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  z-index: 99999;
+  opacity: 0;
+  pointer-events: none;
+  text-align: center;
+  animation: colorShift 3s infinite;
+  text-shadow: 0 0 18px rgba(255,255,255,0.35);
+}
+
+.hidden {
+  display: none;
+}
+
+.fade-in {
+  animation: fadeIn 1.5s ease forwards, colorShift 3s infinite;
+}
+
+.fade-out {
+  animation: fadeOut 1.5s ease forwards, colorShift 3s infinite;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+@keyframes colorShift {
+  0%   { color: #ffffff; }
+  25%  { color: #7fd8ff; }
+  50%  { color: #b388ff; }
+  75%  { color: #ff8fa3; }
+  100% { color: #ffffff; }
+}
 
 
 /*------------------------------------------------------------------------*/
