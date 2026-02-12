@@ -41,11 +41,27 @@ html, body {
 body {
   min-height: 100vh;
   font-family: "Ubuntu", sans-serif;
-  background-image: url("img/background_9_16.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  position: relative;
+  overflow-x: hidden;
+  background: var(--color-blanco);
 }
+
+body::after {
+  content: "";
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("img/Fondopng.png");
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: cover;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.2;
+}
+
 
 header{
     display: flex;
