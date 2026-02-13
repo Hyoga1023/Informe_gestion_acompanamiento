@@ -306,7 +306,7 @@ Para dudas, sugerencias o reporte de errores:
 ## Licencia
 
 Este proyecto es de uso interno exclusivo de Protección S.A.  
-Todos los derechos reservados © 2024-2026
+Todos los derechos reservados © 2026
 
 ---
 
