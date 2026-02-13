@@ -315,6 +315,11 @@ Todos los derechos reservados © 2026
 - Equipo de Asistencia Empresarial de Protección S.A.
 - Comunidad de desarrolladores de las librerías utilizadas
 - Usuarios beta testers del sistema
+Vanessa Orozco
+Arianne Reyes
+Julian Ruiz
+Romulo Sandoval
+Carol Lasso
 
 ---
 
