@@ -73,8 +73,8 @@
             <h3>ASISTENTES</h3>
             <div class="info_basica_recuadro2"> 
                 <div class="form-group form-group-large">
-                    <label for="representante">Contacto Empresa</label>
-                    <input type="text" id="representante" name="representante" class="form-input" placeholder="Digite Nombre, Tipo y Número de ID, Correo y/o Teléfono de Contacto">
+                    <label for="representante">Contactos Empresa (Nombre, Tipo y Número de ID, Correo y/o Teléfono de Contacto)</label>
+                    <textarea id="representante" name="representante" class="form-input" rows="3" placeholder="Digite aqui la información..."></textarea>
                 </div>
                 <div class="ejecutivo">
                     <div class="form-group form-group-large">
@@ -97,7 +97,6 @@
 <section class="info_basica">
   <h3>LISTA DE VERIFICACIÓN</h3>
   <div class="info_basica_recuadro2">
-
     <!-- ===================== --> 
     <!-- GESTIÓN DE DEUDAS PO -->
     <!-- ===================== -->
@@ -113,7 +112,7 @@
             <input type="checkbox" class="subcheck" />
             Deuda Presunta
           </label>
-          <input type="text" class="valor-input moneda" id="valorDeudaPresunta" placeholder="$ 0" disabled>
+          <input type="text" class="valor-input moneda" id="valorDeudaPresunta" placeholder="$ 0">
         </div>
         <textarea id="obsDeudaPresunta" class="check-textarea" placeholder="Observación..." maxlength="1200"></textarea>
 
@@ -122,7 +121,7 @@
             <input type="checkbox" class="subcheck" />
             Deuda Real
           </label>
-          <input type="text" class="valor-input moneda" id="valorDeudaReal" placeholder="$ 0" disabled>
+          <input type="text" class="valor-input moneda" id="valorDeudaReal" placeholder="$ 0">
         </div>
         <textarea id="obsDeudaReal" class="check-textarea" placeholder="Observación..." maxlength="1200"></textarea>
 
@@ -144,16 +143,16 @@
             <input type="checkbox" class="subcheck" />
             Pagos sin planilla (PO)
           </label>
-          <input type="text" class="valor-input moneda" id="valorPagosPO" placeholder="$ 0" disabled>
+          <input type="text" class="valor-input moneda" id="valorPagosPO" placeholder="$ 0">
         </div>
         <textarea id="obsPagosPO" class="check-textarea" placeholder="Observación..." maxlength="1200"></textarea>
 
-        <div class="check-item resaltado">
+        <div class="check-item">
           <label>
             <input type="checkbox" class="subcheck" />
             Rezagos sin Acreditar (PO)
           </label>
-          <input type="text" class="valor-input moneda" id="valorAportesPO" placeholder="$ 0" disabled>
+          <input type="text" class="valor-input moneda" id="valorAportesPO" placeholder="$ 0">
         </div>
         <textarea id="obsAportesPO" class="check-textarea" placeholder="Observación..." maxlength="1200"></textarea>
 
@@ -162,7 +161,7 @@
             <input type="checkbox" class="subcheck" />
             Pagos sin planilla (CES)
           </label>
-          <input type="text" class="valor-input moneda" id="valorPagosCES" placeholder="$ 0" disabled>
+          <input type="text" class="valor-input moneda" id="valorPagosCES" placeholder="$ 0">
         </div>
         <textarea id="obsPagosCES" class="check-textarea" placeholder="Observación..." maxlength="1200"></textarea>
 
@@ -171,16 +170,16 @@
             <input type="checkbox" class="subcheck" />
             Pagos sin planilla (PV)
           </label>
-          <input type="text" class="valor-input moneda" id="valorPagosPV" placeholder="$ 0" disabled>
+          <input type="text" class="valor-input moneda" id="valorPagosPV" placeholder="$ 0">
         </div>
         <textarea id="obsPagosPV" class="check-textarea" placeholder="Observación..." maxlength="1200"></textarea>
 
-        <div class="check-item resaltado">
+        <div class="check-item">
           <label>
             <input type="checkbox" class="subcheck" />
             Rezagos sin Acreditar (PV)
           </label>
-          <input type="text" class="valor-input moneda" id="valorAportesPV" placeholder="$ 0" disabled>
+          <input type="text" class="valor-input moneda" id="valorAportesPV" placeholder="$ 0">
         </div>
         <textarea id="obsAportesPV" class="check-textarea" placeholder="Observación..." maxlength="1200"></textarea>
 
@@ -259,7 +258,7 @@
     <div class="check-bloque">
       <label class="check-header">
         <input type="checkbox" id="checkCasosPendientes" onchange="toggleObservacion('checkCasosPendientes', 'obsCasosPendientes')">
-        Casos Pendientes de Gestión (PQR)
+        CASOS PENDIENTES DE GESTIÓN (PQR)
       </label>
       <textarea id="obsCasosPendientes" class="check-textarea" placeholder="Escriba sus observaciones aquí..."></textarea>
     </div>

@@ -1,29 +1,18 @@
 document.addEventListener("DOMContentLoaded", () => {
 
    // ────────────────────────────────────────────────
-  // Subchecks → habilitar valor + textarea
+  // Subchecks → solo habilitar textarea (valor ya está habilitado)
   // ────────────────────────────────────────────────
   document.querySelectorAll(".subcheck").forEach(check => {
     check.addEventListener("change", function () {
       const fila = this.closest(".check-item");
       if (!fila) return;
 
-      const valor = fila.querySelector(".valor-input");
       const textarea = fila.nextElementSibling;
 
       if (this.checked) {
-        if (valor) {
-          valor.disabled = false;
-          valor.focus();
-        }
         if (textarea) textarea.style.display = "block";
       } else {
-        if (valor) {
-          valor.disabled = true;
-          valor.value = "";
-          valor.required = false;
-          valor.style.borderColor = "#E0E0E0";
-        }
         if (textarea) {
           textarea.style.display = "none";
           textarea.value = "";
@@ -42,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
         this.value = "";
         return;
       }
-      this.value = "$ " + Number(valor).toLocaleString("es-CO");
+      this.value = "$" + Number(valor).toLocaleString("es-CO");
 
       // ✅ Si ya hay número, quitar error visual
       this.style.borderColor = "#E0E0E0";
