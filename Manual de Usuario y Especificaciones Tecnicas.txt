@@ -1,6 +1,6 @@
 # Sistema de Actas de Visitas - Protección S.A.
 
-Aplicación web para el registro y gestión de visitas a grandes empleadores, diseñada para asesores de servicio y orientación pensional de Protección S.A.
+Aplicación web para el registro y gestión de visitas a grandes empleadores, diseñada para Ejecutivos de Asistencia Empresarial de Protección S.A.
 
 ![Estado](https://img.shields.io/badge/Estado-En%20Desarrollo-yellow)
 ![Versión](https://img.shields.io/badge/Versión-1.0-blue)
@@ -284,7 +284,7 @@ Para actualizar la aplicación:
 ## Desarrollador
 
 **Cesar Martinez**  
-Asesor de Servicio y Orientación Pensional  
+Asesor de Servicio Inhouse  
 Protección S.A.  
 Yumbo, Valle del Cauca, Colombia
 
@@ -305,7 +305,7 @@ Para dudas, sugerencias o reporte de errores:
 
 ## Licencia
 
-Este proyecto es de uso interno exclusivo de Protección S.A.  
+Este proyecto es de uso interno exclusivo para Protección S.A.  
 Todos los derechos reservados © 2024-2026
 
 ---
@@ -314,10 +314,15 @@ Todos los derechos reservados © 2024-2026
 
 - Equipo de Asistencia Empresarial de Protección S.A.
 - Comunidad de desarrolladores de las librerías utilizadas
-- Usuarios beta testers del sistema
+- Usuarios beta testers del sistema:
+	Vanessa Orozco
+	Arianne Reyes
+	Julian Ruiz
+	Rómulo Sandoval
+	Carol Lasso
 
 ---
 
 **Última actualización:** Febrero 2026  
-**Versión:** 1.0  
+**Versión:** 1.5  
 **Estado:** En Desarrollo Activo
