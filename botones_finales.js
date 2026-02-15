@@ -1,6 +1,16 @@
 async function descargarExcel() {
 
   // ==========================
+  // OBTENER NOMBRE EJECUTIVO
+  // ==========================
+  const selectEjecutivo = document.getElementById("nombreEjecutivo");
+
+  const nombreEjecutivo =
+    selectEjecutivo.value
+      ? selectEjecutivo.options[selectEjecutivo.selectedIndex].text
+      : "";
+
+  // ==========================
   // PLANTILLA FIJA DE COLUMNAS
   // ==========================
   const fila = {
@@ -9,7 +19,7 @@ async function descargarExcel() {
     "Razón Social": document.getElementById("empresa").value || "",
     "Asesor Comercial": document.getElementById("asesor").value || "",
     "Contactos Empresa": document.getElementById("representante").value || "",
-    "Ejecutivo Asistencia Empresarial": document.getElementById("nombreEjecutivo").value || "",
+    "Ejecutivo Asistencia Empresarial": nombreEjecutivo,
     "E-mail Ejecutivo": document.getElementById("emailEjecutivo").value || "",
 
     "Deuda Presunta (PO)": document.getElementById("valorDeudaPresunta").value || "",
@@ -33,25 +43,37 @@ async function descargarExcel() {
     "Rezagos sin Acreditar (PV)": document.getElementById("valorAportesPV").value || "",
     "Observación RSA (PV)": document.getElementById("obsAportesPV").value || "",
 
-    "Clave Empresarial Portal WEB": document.querySelector('input[name="claveEmpresarial"]:checked')?.value || "",
-    "Observación Clave Empresarial": document.getElementById("obsClaveEmpresarial").value || "",
+    "Clave Empresarial Portal WEB":
+      document.querySelector('input[name="claveEmpresarial"]:checked')?.value || "",
 
-    "Observación Asesoría General Portal WEB": document.getElementById("obsAsesoriaGeneral").value || "",
+    "Observación Clave Empresarial":
+      document.getElementById("obsClaveEmpresarial").value || "",
 
-    "Actualización de Datos": document.querySelector('input[name="actualizacionDatos"]:checked')?.value || "",
+    "Observación Asesoría General Portal WEB":
+      document.getElementById("obsAsesoriaGeneral").value || "",
 
-    "CASOS PENDIENTES DE GESTIÓN (PQR)": document.getElementById("obsCasosPendientes").value || "",
-    "Compromisos Empleador": document.getElementById("obsCompromisosEmpleador").value || "",
-    "Compromisos Protección": document.getElementById("obsCompromisosProteccion").value || "",
+    "Actualización de Datos":
+      document.querySelector('input[name="actualizacionDatos"]:checked')?.value || "",
 
-    "Nuevo Agendamiento": document.querySelector('input[name="proximoEncuentro"]:checked')?.value || "",
-    "Encuesta de Satisfacción": document.querySelector('input[name="encuestaSatisfaccion"]:checked')?.value || ""
+    "CASOS PENDIENTES DE GESTIÓN (PQR)":
+      document.getElementById("obsCasosPendientes").value || "",
+
+    "Compromisos Empleador":
+      document.getElementById("obsCompromisosEmpleador").value || "",
+
+    "Compromisos Protección":
+      document.getElementById("obsCompromisosProteccion").value || "",
+
+    "Nuevo Agendamiento":
+      document.querySelector('input[name="proximoEncuentro"]:checked')?.value || "",
+
+    "Encuesta de Satisfacción":
+      document.querySelector('input[name="encuestaSatisfaccion"]:checked')?.value || ""
   };
 
   // =====================
   // HISTÓRICO LOCALFORAGE
   // =====================
-
   let historial = await localforage.getItem("historicoVisitas") || [];
   historial.push(fila);
 
@@ -60,7 +82,6 @@ async function descargarExcel() {
   // =====================
   // CREAR EXCEL
   // =====================
-
   const ws = XLSX.utils.json_to_sheet(historial);
 
   // Ajustar ancho columnas
@@ -68,7 +89,7 @@ async function descargarExcel() {
 
   // Wrap text (saltos de línea)
   Object.keys(ws).forEach(cell => {
-    if(cell[0] === "!") return;
+    if (cell[0] === "!") return;
     ws[cell].s = {
       alignment: {
         wrapText: true,
@@ -84,4 +105,3 @@ async function descargarExcel() {
 }
 
 // _____________________Fin Función Excel_____________________ //
-
