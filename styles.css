@@ -647,7 +647,7 @@ footer img{
 /* Botón PDF - Azul oscuro de Protección */
 .btn-pdf {
     background-color: var(--color-2);
-    color: white;
+    color: var(--color-blanco);
     border-color: var(--color-2);
 }
 
@@ -656,14 +656,14 @@ footer img{
 }
 .btn-limpiar {
     background-color: #222222;
-    color: white;
+    color: var(--color-blanco);
     border-color: #070707;
 }
 
 /* Botón Borrar - Rojo (separado) */
 .btn-borrar {
     background-color: #dc3545;
-    color: white;
+    color: var(--color-blanco);
     border-color: #c82333;
 }
 
