@@ -636,7 +636,7 @@ footer img{
 /* Botón Excel - Verde */
 .btn-excel {
     background-color: #107C41;
-    color: white;
+    color: var(--color-blanco);
     border-color: #0e6b38;
 }
 
