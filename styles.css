@@ -654,6 +654,11 @@ footer img{
 .btn-pdf:hover {
     background-color: #0a1970;
 }
+.btn-limpiar {
+    background-color: #222222;
+    color: white;
+    border-color: #070707;
+}
 
 /* Botón Borrar - Rojo (separado) */
 .btn-borrar {

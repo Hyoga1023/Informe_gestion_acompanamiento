@@ -11,21 +11,29 @@ let autoSaveTimer;
 // ===========================
 async function guardarVisitaAuto() {
 
-  const datos = {
-    fecha: document.getElementById("fecha").value || "",
-    nit: document.getElementById("nit").value || "",
-    empresa: document.getElementById("empresa").value || "",
-    asesor: document.getElementById("asesor").value || "",
-    representante: document.getElementById("representante").value || "",
-    ejecutivo: document.getElementById("nombreEjecutivo").value || "",
-    email: document.getElementById("emailEjecutivo").value || "",
+  const datos = {};
 
-    obsCasosPendientes:
-      document.getElementById("obsCasosPendientes").value || ""
-  };
+  // inputs y textareas
+  document.querySelectorAll("input, textarea, select").forEach(el => {
+
+    if (!el.id) return;
+
+    if (el.type === "radio") {
+      if (el.checked) datos[el.name] = el.value;
+      return;
+    }
+
+    if (el.type === "checkbox") {
+      datos[el.id] = el.checked;
+      return;
+    }
+
+    datos[el.id] = el.value;
+  });
 
   await localforage.setItem(KEY_VISITA, datos);
 }
+
 
 
 // ===========================
@@ -63,17 +71,30 @@ function activarAutoguardado() {
 // ===========================
 function aplicarDatosFormulario(datos) {
 
-  document.getElementById("fecha").value = datos.fecha || "";
-  document.getElementById("nit").value = datos.nit || "";
-  document.getElementById("empresa").value = datos.empresa || "";
-  document.getElementById("asesor").value = datos.asesor || "";
-  document.getElementById("representante").value = datos.representante || "";
-  document.getElementById("nombreEjecutivo").value = datos.ejecutivo || "";
-  document.getElementById("emailEjecutivo").value = datos.email || "";
+  Object.keys(datos).forEach(key => {
 
-  document.getElementById("obsCasosPendientes").value =
-    datos.obsCasosPendientes || "";
+    const el = document.getElementById(key);
+
+    if (el) {
+
+      if (el.type === "checkbox") {
+        el.checked = datos[key];
+        return;
+      }
+
+      el.value = datos[key];
+    }
+
+    // radios
+    const radio = document.querySelector(
+      `input[name="${key}"][value="${datos[key]}"]`
+    );
+
+    if (radio) radio.checked = true;
+
+  });
 }
+
 
 
 // ===========================
