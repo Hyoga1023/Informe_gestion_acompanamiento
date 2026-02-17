@@ -16,12 +16,14 @@ async function guardarVisitaAuto() {
   // inputs y textareas
   document.querySelectorAll("input, textarea, select").forEach(el => {
 
-    if (!el.id) return;
-
+    // ⚡ RADIOS: Se guardan por NAME, no por ID
     if (el.type === "radio") {
       if (el.checked) datos[el.name] = el.value;
       return;
     }
+
+    // El resto necesita ID
+    if (!el.id) return;
 
     if (el.type === "checkbox") {
       datos[el.id] = el.checked;
@@ -32,6 +34,7 @@ async function guardarVisitaAuto() {
   });
 
   await localforage.setItem(KEY_VISITA, datos);
+  console.log("💾 Datos guardados:", datos);
 }
 
 
@@ -71,6 +74,7 @@ function activarAutoguardado() {
 // ===========================
 function aplicarDatosFormulario(datos) {
 
+  // PASO 1: Cargar todos los valores
   Object.keys(datos).forEach(key => {
 
     const el = document.getElementById(key);
@@ -93,6 +97,68 @@ function aplicarDatosFormulario(datos) {
     if (radio) radio.checked = true;
 
   });
+
+  // PASO 2: Restaurar visibilidad de observaciones
+  restaurarVisibilidadObservaciones();
+}
+
+
+// ===========================
+// RESTAURAR VISIBILIDAD
+// ===========================
+function restaurarVisibilidadObservaciones() {
+  
+  // 🔥 SUBCHECKS (Deudas, Inconsistencias, etc.)
+  document.querySelectorAll(".subcheck").forEach(check => {
+    if (check.checked) {
+      const fila = check.closest(".check-item");
+      if (!fila) return;
+      
+      const textarea = fila.nextElementSibling;
+      if (textarea && textarea.tagName === "TEXTAREA") {
+        textarea.style.display = "block";
+      }
+    }
+  });
+
+  // 🔥 CHECKBOXES PRINCIPALES con observaciones (Casos Pendientes, Compromisos)
+  const checksPrincipales = [
+    { checkId: 'checkCasosPendientes', obsId: 'obsCasosPendientes' },
+    { checkId: 'checkCompromisosEmpleador', obsId: 'obsCompromisosEmpleador' },
+    { checkId: 'checkCompromisosProteccion', obsId: 'obsCompromisosProteccion' }
+  ];
+
+  checksPrincipales.forEach(({ checkId, obsId }) => {
+    const check = document.getElementById(checkId);
+    const obs = document.getElementById(obsId);
+    
+    if (check && check.checked && obs) {
+      obs.style.display = "block";
+    }
+  });
+
+  // 🔥 PRÓXIMO ENCUENTRO (radio)
+  const radioProximo = document.querySelector('input[name="proximoEncuentro"]:checked');
+  if (radioProximo && radioProximo.value === "si") {
+    const container = document.getElementById("proximoObservacionContainer");
+    if (container) {
+      container.style.display = "flex";
+    }
+  }
+
+  // 🔥 CLAVE EMPRESARIAL (resaltar si es NO)
+  const radioClave = document.querySelector('input[name="claveEmpresarial"]:checked');
+  const obsClave = document.getElementById("obsClaveEmpresarial");
+  if (radioClave && radioClave.value === "no" && obsClave) {
+    obsClave.style.borderColor = "var(--color-1)";
+  }
+
+  // 🔥 LOGS PARA DEBUGGING - Ver qué radios se recuperaron
+  console.log("📻 Radios recuperados:");
+  console.log("  - Clave Empresarial:", document.querySelector('input[name="claveEmpresarial"]:checked')?.value || "ninguno");
+  console.log("  - Actualización Datos:", document.querySelector('input[name="actualizacionDatos"]:checked')?.value || "ninguno");
+  console.log("  - Encuesta Satisfacción:", document.querySelector('input[name="encuestaSatisfaccion"]:checked')?.value || "ninguno");
+  console.log("  - Próximo Encuentro:", document.querySelector('input[name="proximoEncuentro"]:checked')?.value || "ninguno");
 }
 
 

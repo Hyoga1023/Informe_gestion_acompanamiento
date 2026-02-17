@@ -290,6 +290,15 @@ main h3{
 .form-input[type="date"]:hover::-webkit-calendar-picker-indicator {
     filter: invert(76%) sepia(76%) saturate(529%) hue-rotate(13deg);
 }
+
+/* 🔧 MODIFICADO: Textarea de contactos empresa unificado */
+textarea.form-input,
+textarea#representante {
+    font-size: 0.9rem !important;
+    padding: 8px !important;
+    color: inherit !important;
+}
+
 .check-bloque {
   display: flex;
   flex-direction: column;
@@ -353,8 +362,8 @@ main h3{
 .check-textarea {
   display: none;
   width: 100%;
-  min-height: 70px; /* 👈 REDUCIDO de 80px a 70px */
-  padding: 8px; /* 👈 REDUCIDO de 10px a 8px */
+  min-height: 70px;
+  padding: 8px;
   border: 2px solid #E0E0E0;
   border-radius: 8px;
   font-family: "Ubuntu", sans-serif;
@@ -469,24 +478,24 @@ main h3{
     color: var(--color-2);
 }
 
+/* 🔧 MODIFICADO: Unificado con estilo de gestiones */
 .observacion-input {
     width: 100%;
-    padding: 0.65rem 1rem; /* 👈 REDUCIDO de 0.75rem a 0.65rem */
+    padding: 8px;
     border: 2px solid #E0E0E0;
     border-radius: 8px;
     font-family: "Ubuntu", sans-serif;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     background: white;
-    color: var(--color-2);
     transition: all 0.3s ease;
     resize: vertical;
-    min-height: 70px; /* 👈 REDUCIDO de 80px a 70px */
+    min-height: 70px;
 }
 
 .observacion-input:focus {
     outline: none;
     border-color: var(--color-1);
-    box-shadow: 0 0 0 4px rgba(223, 202, 14, 0.1);
+    box-shadow: 0 0 0 3px rgba(223, 202, 14, 0.1);
 }
 
 .observacion-input:hover {

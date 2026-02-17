@@ -67,9 +67,6 @@ async function descargarExcel() {
     "Nuevo Agendamiento":
       document.querySelector('input[name="proximoEncuentro"]:checked')?.value || "",
 
-    "Detalle del próximo encuentro / observaciones":
-      document.getElementById("obsProximoEncuentro").value || "",
-
     "Encuesta de Satisfacción":
       document.querySelector('input[name="encuestaSatisfaccion"]:checked')?.value || ""
   };
@@ -120,7 +117,7 @@ async function generarPDF() {
     // =============================
     Swal.fire({
       title: "Generando PDF...",
-      text: "Preparando documento de alta calidad",
+      text: "Preparando documento",
       allowOutsideClick: false,
       didOpen: () => Swal.showLoading()
     });
@@ -163,105 +160,41 @@ async function generarPDF() {
     captura.appendChild(mainClone);
 
     // =============================
-    // COPIAR VALORES DE INPUTS
+    // PLACEHOLDERS + FIX INPUTS
     // =============================
-    const inputsOriginales = main.querySelectorAll("input");
-    const inputsClonados = mainClone.querySelectorAll("input");
-    
-    inputsOriginales.forEach((input, index) => {
-      if (inputsClonados[index]) {
-        if (input.type === "checkbox" || input.type === "radio") {
-          inputsClonados[index].checked = input.checked;
-        } else {
-          inputsClonados[index].value = input.value;
-        }
-      }
-    });
+    captura.querySelectorAll("input, textarea").forEach(el => {
 
-    // =============================
-    // COPIAR VALORES DE SELECTS
-    // =============================
-    const selectsOriginales = main.querySelectorAll("select");
-    const selectsClonados = mainClone.querySelectorAll("select");
-    
-    selectsOriginales.forEach((select, index) => {
-      if (selectsClonados[index]) {
-        selectsClonados[index].value = select.value;
-      }
-    });
+      const ph = el.getAttribute("placeholder");
 
-    // =============================
-    // CONVERTIR TEXTAREAS A DIVS
-    // =============================
-    const textareasOriginales = main.querySelectorAll("textarea");
-    const textareasClonados = mainClone.querySelectorAll("textarea");
-    
-    textareasOriginales.forEach((textarea, index) => {
-      if (textareasClonados[index]) {
-        const textoOriginal = textarea.value;
-        
-        // Crear un DIV que reemplace el textarea
-        const divReemplazo = document.createElement("div");
-        
-        // Copiar estilos del textarea
-        const estilosComputados = window.getComputedStyle(textarea);
-        divReemplazo.style.cssText = textarea.style.cssText;
-        divReemplazo.style.width = estilosComputados.width;
-        divReemplazo.style.minHeight = estilosComputados.minHeight;
-        divReemplazo.style.padding = estilosComputados.padding;
-        divReemplazo.style.border = estilosComputados.border;
-        divReemplazo.style.borderRadius = estilosComputados.borderRadius;
-        divReemplazo.style.backgroundColor = estilosComputados.backgroundColor;
-        divReemplazo.style.fontFamily = estilosComputados.fontFamily;
-        divReemplazo.style.fontSize = estilosComputados.fontSize;
-        divReemplazo.style.lineHeight = estilosComputados.lineHeight;
-        divReemplazo.style.color = estilosComputados.color;
-        
-        // Estilos adicionales para el texto
-        divReemplazo.style.whiteSpace = "pre-wrap";
-        divReemplazo.style.wordWrap = "break-word";
-        divReemplazo.style.overflow = "visible";
-        divReemplazo.style.boxSizing = "border-box";
-        
-        // Insertar el texto
-        divReemplazo.textContent = textoOriginal;
-        
-        // Reemplazar el textarea con el div
-        textareasClonados[index].parentNode.replaceChild(divReemplazo, textareasClonados[index]);
-      }
-    });
-
-    // =============================
-    // LIMPIAR PLACEHOLDERS INPUTS
-    // =============================
-    captura.querySelectorAll("input").forEach(input => {
-      const ph = input.getAttribute("placeholder");
+      // SOLO placeholders $
       if (ph && !ph.includes("$")) {
-        input.setAttribute("placeholder", "");
+        el.setAttribute("placeholder", "");
       }
+
+      // INPUTS
+      if (el.tagName === "INPUT") {
+        el.style.minHeight = el.offsetHeight + "px";
+        el.style.boxSizing = "border-box";
+      }
+
+      // TEXTAREAS (FIX REAL)
+      if (el.tagName === "TEXTAREA") {
+        el.style.height = "auto";
+        el.style.height = el.scrollHeight + "px";
+        el.style.whiteSpace = "pre-wrap";
+      }
+
     });
 
     document.body.appendChild(captura);
 
-    // Delay para renderizado
-    await new Promise(resolve => setTimeout(resolve, 150));
-
     // =============================
-    // CAPTURA DE ALTA CALIDAD
+    // CAPTURA HTML2CANVAS
     // =============================
     const canvas = await html2canvas(captura, {
-      scale: 2,                    // ⬆️ De 1.2 a 2 (MUCHA MÁS CALIDAD)
+      scale: 1.2,
       useCORS: true,
-      backgroundColor: "#ffffff",
-      logging: false,
-      allowTaint: false,
-      imageTimeout: 0,
-      width: captura.scrollWidth,
-      height: captura.scrollHeight,
-      windowWidth: captura.scrollWidth,
-      windowHeight: captura.scrollHeight,
-      removeContainer: false,
-      foreignObjectRendering: false  // Mejor renderizado de fuentes
+      backgroundColor: "#ffffff"
     });
 
     document.body.removeChild(captura);
@@ -271,9 +204,9 @@ async function generarPDF() {
     }
 
     // =============================
-    // CREAR PDF CON MEJOR CALIDAD
+    // CREAR PDF
     // =============================
-    const imgData = canvas.toDataURL("image/jpeg", 0.92);  // ⬆️ De 0.85 a 0.92
+    const imgData = canvas.toDataURL("image/png");
 
     const pdf = new jsPDF("p", "mm", "a4");
 
@@ -291,13 +224,11 @@ async function generarPDF() {
     // PRIMERA PAGINA
     pdf.addImage(
       imgData,
-      "JPEG",
+      "PNG",
       0,
       position,
       pdfWidth,
-      imgHeight,
-      undefined,
-      "SLOW"    // ⬆️ De "FAST" a "SLOW" para mejor compresión
+      imgHeight
     );
 
     heightLeft -= pageHeight;
@@ -311,13 +242,11 @@ async function generarPDF() {
 
       pdf.addImage(
         imgData,
-        "JPEG",
+        "PNG",
         0,
         position,
         pdfWidth,
-        imgHeight,
-        undefined,
-        "SLOW"
+        imgHeight
       );
 
       heightLeft -= pageHeight;
@@ -328,8 +257,7 @@ async function generarPDF() {
     Swal.fire({
       icon: "success",
       title: "PDF generado",
-      text: "Documento de alta calidad creado exitosamente",
-      timer: 2000,
+      timer: 1500,
       showConfirmButton: false
     });
 
