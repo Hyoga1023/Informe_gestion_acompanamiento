@@ -1,9 +1,12 @@
 async function borrarDatos() {
 
-  const resultado = await Swal.fire({
+const resultado = await Swal.fire({
     title: "¿Borrar histórico de Excel?",
-    text: "Esto eliminará solo el historial exportado. La base de datos seguirá intacta.",
-    icon: "warning",
+    text: "Esto eliminará solo el historial exportado. La base de datos seguirá intacta. Aun así… el mundo, como lo conoces, podría desaparecer!",
+    imageUrl: "img/calavera.png",
+    imageWidth: 100,
+    imageHeight: 100,
+    imageAlt: "Peligro",
     showCancelButton: true,
     confirmButtonText: "Sí, borrar",
     cancelButtonText: "Cancelar",
