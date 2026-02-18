@@ -34,6 +34,8 @@ async function limpiarFormulario() {
   // borrar solo autoguardado actual
   await localforage.removeItem("visitaActual");
 
+  reiniciarCandadoPDF();
+
   await Swal.fire({
     icon: "success",
     title: "Formulario limpio",
@@ -41,3 +43,4 @@ async function limpiarFormulario() {
     showConfirmButton: false
   });
 }
+  

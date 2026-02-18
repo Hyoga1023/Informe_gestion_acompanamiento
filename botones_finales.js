@@ -105,6 +105,8 @@ async function descargarExcel() {
   XLSX.utils.book_append_sheet(wb, ws, "Informe");
 
   XLSX.writeFile(wb, "Informe_Acompanamiento.xlsx");
+
+  marcarExcelDescargado();
 }
 
 // _____________________Fin Función Excel_____________________ //
@@ -115,9 +117,8 @@ async function generarPDF() {
 
   try {
 
-    // =============================
-    // SWEET ALERT
-    // =============================
+    if (!verificarPermisoPDF()) return;
+
     Swal.fire({
       title: "Generando PDF...",
       text: "Preparando documento de alta calidad",
