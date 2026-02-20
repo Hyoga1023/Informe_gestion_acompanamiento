@@ -9,7 +9,14 @@
  *   {
  *     "nit": "800123456",
  *     "razon_social": "EMPRESA EJEMPLO S.A.S",
- *     "asesor_comercial": "Juan Pérez"
+ *     "asesor_comercial": "Juan Pérez",
+ *     "deuda_presunta": "$ 8.563.712",
+ *     "deuda_real": "$ 1.069.458",
+ *     "pagos_po": "",
+ *     "aportes_po": "",
+ *     "pagos_ces": "",
+ *     "pagos_pv": "",
+ *     "aportes_pv": ""
  *   },
  *   ...
  * ]
@@ -61,29 +68,36 @@ inputFile.addEventListener('change', async (e) => {
     try {
         const contenido = await leerArchivoJSON(archivo);
 
-const empleadores = Array.isArray(contenido)
-  ? contenido
-  : contenido.empleadores;
+        const empleadores = Array.isArray(contenido)
+            ? contenido
+            : contenido.empleadores;
 
-if (!Array.isArray(empleadores)) {
-  throw new Error("El archivo JSON debe ser un Array de empleadores.");
-}
+        if (!Array.isArray(empleadores)) {
+            throw new Error("El archivo JSON debe ser un Array de empleadores.");
+        }
 
-const erroresValidacion = validarEmpleadores(empleadores);
-if (erroresValidacion.length > 0) {
-  throw new Error(`Errores en la estructura de datos:\n${erroresValidacion.join('\n')}`);
-}
+        const erroresValidacion = validarEmpleadores(empleadores);
+        if (erroresValidacion.length > 0) {
+            throw new Error(`Errores en la estructura de datos:\n${erroresValidacion.join('\n')}`);
+        }
 
-const indiceEmpleadores = {};
-empleadores.forEach(emp => {
-  const nit = limpiarNIT(emp.nit);
-  indiceEmpleadores[nit] = {
-    nit,
-    razonSocial: emp.razon_social.trim(),
-    asesorComercial: emp.asesor_comercial.trim()
-  };
-});
-
+        const indiceEmpleadores = {};
+        empleadores.forEach(emp => {
+            const nit = limpiarNIT(emp.nit);
+            indiceEmpleadores[nit] = {
+                nit,
+                razonSocial:      emp.razon_social.trim(),
+                asesorComercial:  (emp.asesor_comercial || '').trim() || 'Sin Consultor Asignado',
+                // Campos de gestión — si no existen en el JSON quedan como ""
+                valorDeudaPresunta: (emp.deuda_presunta  || '').trim(),
+                valorDeudaReal:     (emp.deuda_real      || '').trim(),
+                valorPagosPO:       (emp.pagos_po        || '').trim(),
+                valorAportesPO:     (emp.aportes_po      || '').trim(),
+                valorPagosCES:      (emp.pagos_ces       || '').trim(),
+                valorPagosPV:       (emp.pagos_pv        || '').trim(),
+                valorAportesPV:     (emp.aportes_pv      || '').trim()
+            };
+        });
 
         await localforage.setItem('baseEmpleadores', indiceEmpleadores);
         
