@@ -1,23 +1,25 @@
 # Sistema de Actas de Visitas - Protección S.A.
 
-Aplicación web para el registro y gestión de visitas a grandes empleadores, diseñada para asesores de servicio y orientación pensional de Protección S.A.
+Aplicación web para el registro y gestión de visitas a grandes empleadores, diseñada para ejecutivos de asistencia empresarial y ejecutivos de empresas PREMIUM de Protección S.A.
 
 ![Estado](https://img.shields.io/badge/Estado-En%20Desarrollo-yellow)
-![Versión](https://img.shields.io/badge/Versión-1.0-blue)
+![Versión](https://img.shields.io/badge/Versión-1.2-blue)
 ![Licencia](https://img.shields.io/badge/Licencia-Privado-red)
 
 ---
 
 ## Descripción del Proyecto
 
-Sistema web que permite a los asesores comerciales de Protección S.A. documentar de manera eficiente las visitas realizadas a grandes empleadores, facilitando:
+Sistema web que permite a los ejecutivos de asistencia empresarial y ejecutivos de empresas PREMIUM de Protección S.A. documentar de manera eficiente las visitas realizadas a grandes empleadores, facilitando:
 
 - ✅ Registro estructurado de información de visitas
 - ✅ Checklist dinámico con campos condicionales
 - ✅ Almacenamiento local en el navegador
+- ✅ Autoguardado automático del formulario
 - ✅ Generación de archivos Excel para archivo
 - ✅ Generación de documentos PDF para impresión y firma
 - ✅ Historial de visitas accesible
+- ✅ Alertas y confirmaciones con SweetAlert2
 
 ---
 
@@ -35,15 +37,18 @@ Sistema web que permite a los asesores comerciales de Protección S.A. documenta
 - Deuda Real
 
 **Gestión de Inconsistencias (PO, PV y CES):**
-- Pagos sin planilla
-- Rezagos sin acreditar
-- Seguimiento específico por producto
+- Pagos sin planilla (PO)
+- Rezagos sin Acreditar (PO)
+- Pagos sin planilla (CES)
+- Pagos sin planilla (PV)
+- Rezagos sin Acreditar (PV)
 
 **Canales Digitales:**
-- Registro de asesorías sobre Portal WEB y apps móviles
+- Clave Empresarial Portal WEB (SI/NO + observaciones)
+- Asesoría General Portal WEB (observaciones)
 
 **Actualización de Datos:**
-- Validación de información actualizada del empleador
+- Validación de información actualizada del empleador (SI / NO / No Aplica)
 
 **Casos Pendientes:**
 - Seguimiento a PQR
@@ -66,8 +71,9 @@ Sistema web que permite a los asesores comerciales de Protección S.A. documenta
 ### Librerías
 - **localForage** - Almacenamiento local extendido (IndexedDB wrapper)
 - **SheetJS (xlsx.js)** - Generación de archivos Excel
-- **jsPDF** - Generación de documentos PDF
-- **Live2D Widget** - Elementos interactivos de interfaz
+- **jsPDF + html2canvas** - Generación de documentos PDF
+- **SweetAlert2** - Alertas y diálogos de confirmación estilizados
+- **Google Fonts (Ubuntu)** - Tipografía corporativa
 
 ### Hosting
 - **GitHub Pages** - Alojamiento gratuito con HTTPS
@@ -80,28 +86,30 @@ Sistema web que permite a los asesores comerciales de Protección S.A. documenta
 actas-proteccion/
 │
 ├── index.html                 # Página principal (formulario de visita)
-├── visitas.html              # Gestión de visitas guardadas
-├── carga_base.html           # Carga de base de datos
+├── visitas.html               # Gestión de visitas guardadas
+├── carga_base.html            # Carga de base de datos
 │
-├── css/
-│   ├── reset.css             # Reset de estilos
-│   └── styles.css            # Estilos principales
+├── reset.css                  # Reset de estilos
+├── styles.css                 # Estilos principales
 │
-├── js/
-│   ├── check.js              # Lógica de checklist dinámico
-│   ├── observaciones.js      # Manejo de observaciones
-│   ├── botones_finales.js    # Funciones de guardado/descarga
-│   ├── hamburguesa.js        # Menú de navegación
-│   ├── ejecutivos.js         # Gestión de ejecutivos
-│   ├── autocompletar.js      # Autocompletado de datos
-│   ├── btnTop.js             # Botón volver arriba
-│   └── easterEgg*.js         # Funcionalidades adicionales
+├── check.js                   # Lógica de checklist dinámico
+├── observaciones.js           # Manejo de observaciones condicionales
+├── botones_finales.js         # Funciones de guardado/descarga (Excel, PDF)
+├── orden_documentos.js        # Orden y estructura de documentos generados
+├── hamburguesa.js             # Menú de navegación lateral
+├── ejecutivos.js              # Gestión y selección de ejecutivos AE
+├── autocompletar.js           # Autocompletado de datos por NIT
+├── btnTop.js                  # Botón flotante volver arriba
+├── fecha.js                   # Manejo y formato de fechas
+├── autosave.js                # Autoguardado automático del formulario
+├── limpiar.js                 # Limpieza y reseteo del formulario
+├── sweetAlert2.js             # Configuración de alertas y confirmaciones
 │
 ├── img/
-│   ├── icono.png             # Favicon
-│   └── logo_*.png            # Logos corporativos
+│   ├── icono.png              # Favicon
+│   └── logo_*.png             # Logos corporativos
 │
-└── README.md                 # Este archivo
+└── README.md                  # Este archivo
 ```
 
 ---
@@ -120,6 +128,12 @@ Los campos de observaciones aparecen automáticamente cuando se marca un checkbo
 - Formato automático con separadores de miles
 - Símbolo de peso colombiano ($)
 - Siempre habilitados para captura rápida
+
+### Autoguardado
+Los datos del formulario se guardan automáticamente mientras el asesor trabaja, evitando pérdida de información por cierres accidentales del navegador o interrupciones inesperadas.
+
+### Alertas con SweetAlert2
+Confirmaciones, mensajes de éxito y advertencias se muestran mediante diálogos estilizados con SweetAlert2, mejorando la experiencia de usuario frente a los `alert()` nativos del navegador.
 
 ### Almacenamiento Local
 Los datos se guardan automáticamente en el navegador del usuario mediante localForage, permitiendo:
@@ -209,7 +223,7 @@ Formato: `visita-{timestamp}`
 ### Datos Locales
 - Los datos se guardan exclusivamente en el navegador del usuario
 - No se transmiten a ningún servidor externo
-- Cada asesor ve únicamente sus propias visitas
+- Cada ejecutivo ve únicamente sus propias visitas
 - Privacidad total garantizada
 
 ### Consideraciones
@@ -225,7 +239,7 @@ Formato: `visita-{timestamp}`
 ## Instalación y Uso
 
 ### Para Usuarios
-1. Acceder a la URL proporcionada por el administrador
+1. Ejecutivo accede a la URL proporcionada por el administrador
 2. Completar el formulario de visita
 3. Los datos se guardan automáticamente en el navegador
 4. Generar Excel/PDF según necesidad
@@ -246,14 +260,15 @@ python -m http.server 8000
 
 ## Flujo de Trabajo Típico
 
-1. Asesor abre la aplicación
+1. Ejecutivo AE o PREMIUM abre la aplicación
 2. Completa datos básicos (fecha, NIT, empresa)
-3. Marca items relevantes del checklist
-4. Agrega observaciones cuando marca "SÍ"
-5. Completa sección de conclusiones
-6. Guarda la visita (almacenamiento local)
-7. Genera Excel para archivo
-8. Genera PDF para firma si es necesario
+3. El sistema autocompleta razón social y asesor por NIT
+4. Marca items relevantes del checklist
+5. Agrega observaciones en los campos condicionales
+6. Completa sección de conclusiones
+7. El autosave protege el progreso en todo momento
+8. Genera Excel para archivo
+9. Genera PDF para firma si es necesario
 
 ---
 
@@ -284,7 +299,7 @@ Para actualizar la aplicación:
 ## Desarrollador
 
 **Cesar Martinez**  
-Asesor de Servicio y Orientación Pensional  
+Asesor Integral In House  
 Protección S.A.  
 Yumbo, Valle del Cauca, Colombia
 
@@ -314,15 +329,15 @@ Todos los derechos reservados © 2026
 
 - Equipo de Asistencia Empresarial de Protección S.A.
 - Comunidad de desarrolladores de las librerías utilizadas
-- Usuarios beta testers del sistema
-Vanessa Orozco
-Arianne Reyes
-Julian Ruiz
-Romulo Sandoval
-Carol Lasso
+- Usuarios beta testers del sistema:
+  Vanessa Orozco,
+  Arianne Reyes,
+  Julian Ruiz,
+  Romulo Sandoval,
+  Carol Lasso
 
 ---
 
 **Última actualización:** Febrero 2026  
-**Versión:** 1.0  
+**Versión:** 1.2  
 **Estado:** En Desarrollo Activo
