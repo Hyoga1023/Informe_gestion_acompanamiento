@@ -157,6 +157,7 @@ header{
     font-size: 3rem;
     padding: 5px 20px;
 }
+
 .logo-link {
   text-decoration: none;
   color: inherit;
@@ -557,28 +558,65 @@ textarea#representante {
 
 /*-----------------------------Footer-----------------------------*/
 footer{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    width: 100%;
+    background-color: var(--color-negro);
     color: var(--color-blanco);
     font-family: "Ubuntu", sans-serif;
     font-size: 0.7rem;
-    width: 100%;
-    height: 100px;
-    gap: 5px;
     padding: 20px;
-    background-color: var(--color-negro);
-    margin-top: 20px; /* 👈 REDUCIDO de 40px a 20px */
+    margin-top: 20px;
 }
+
+.footer-contenedor{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-izquierda,
+.footer-derecha{
+    flex:1;
+    align-items: center;
+}
+.footer-centro{
+    flex:3;
+    flex-direction: column;
+    text-align: center;
+    gap: 5px;
+}
+
 footer img{
     width: 100px;
     height: auto;
 }
+
+.footer-derecha a{
+    color: var(--color-blanco);
+    margin-left: 0px;
+    padding: 0 10px;
+    font-size: 1.8rem;
+    transition: 0.3s;
+}
+
+.footer-derecha a:hover{
+    color: var(--color-1);
+    transform: scale(1.2);
+}
+footer h2{
+    text-align: center;
+    font-family: "Diodrum", sans-serif;
+    color: var(--color-blanco);
+    font-size: 2.3rem;
+    padding: 5px 10px;
+}
 .bajo_footer{
-  width: 100%;
-  height: 10px;
-  background-color: var(--color-1);
+    width: 100%;
+    height: 7px;
+    background-color: var(--color-1);
+}
+
+footer p{
+    color: #888;
 }
 /* ===================================== */
 /* BOTONES DE ACCIÓN */
@@ -589,13 +627,13 @@ footer img{
     align-items: center;
     width: 100%;
     max-width: 1500px;
-    padding: 25px 30px; /* 👈 REDUCIDO de 40px a 25px */
-    gap: 30px; /* 👈 REDUCIDO de 40px a 30px */
+    padding: 25px 30px; 
+    gap: 30px; 
 }
 
 .botones-principales {
     display: flex;
-    gap: 15px; /* 👈 REDUCIDO de 20px a 15px */
+    gap: 15px; 
     flex-wrap: wrap;
 }
 
@@ -608,7 +646,7 @@ footer img{
     align-items: center;
     justify-content: center;
     gap: 10px;
-    padding: 12px 25px; /* 👈 REDUCIDO de 15px 30px a 12px 25px */
+    padding: 12px 25px;
     font-family: "Ubuntu", sans-serif;
     font-size: 1rem;
     font-weight: 600;
