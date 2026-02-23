@@ -815,7 +815,7 @@ footer p{
   bottom: 30px;
   left: 96%;
   transform: translateX(-50%) translateY(10px);
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(221, 85, 6, 0.603);
   color: var(--color-blanco);
   border: none;
   border-radius: 50%;
