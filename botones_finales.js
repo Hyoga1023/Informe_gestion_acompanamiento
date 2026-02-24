@@ -180,6 +180,28 @@ async function generarPDF() {
     });
 
     // =============================
+    // SINCRONIZAR VISIBILIDAD DE TEXTAREAS (checkboxes con toggleObservacion)
+    // Problema: cloneNode copia el display:none del CSS inicial pero no
+    // re-ejecuta toggleObservacion(), así que aunque el checkbox quede checked
+    // en el clon, su textarea asociado permanece oculto → se ve disparejo en PDF.
+    // Solución: forzar el display correcto leyendo el estado real del DOM original.
+    // =============================
+    const checksConToggle = [
+      { checkId: "checkCasosPendientes",       obsId: "obsCasosPendientes"       },
+      { checkId: "checkCompromisosEmpleador",  obsId: "obsCompromisosEmpleador"  },
+      { checkId: "checkCompromisosProteccion", obsId: "obsCompromisosProteccion" },
+    ];
+
+    checksConToggle.forEach(({ checkId, obsId }) => {
+      const checkOriginal = main.querySelector(`#${checkId}`);
+      const obsClonado    = mainClone.querySelector(`#${obsId}`);
+
+      if (checkOriginal && obsClonado) {
+        obsClonado.style.display = checkOriginal.checked ? "block" : "none";
+      }
+    });
+
+    // =============================
     // COPIAR VALORES DE SELECTS
     // =============================
     const selectsOriginales = main.querySelectorAll("select");
@@ -251,7 +273,7 @@ async function generarPDF() {
     // CAPTURA DE ALTA CALIDAD
     // =============================
     const canvas = await html2canvas(captura, {
-      scale: 2,                    // ⬆️ De 1.2 a 2 (MUCHA MÁS CALIDAD)
+      scale: 2,
       useCORS: true,
       backgroundColor: "#ffffff",
       logging: false,
@@ -262,7 +284,7 @@ async function generarPDF() {
       windowWidth: captura.scrollWidth,
       windowHeight: captura.scrollHeight,
       removeContainer: false,
-      foreignObjectRendering: false  // Mejor renderizado de fuentes
+      foreignObjectRendering: false
     });
 
     document.body.removeChild(captura);
@@ -274,7 +296,7 @@ async function generarPDF() {
     // =============================
     // CREAR PDF CON MEJOR CALIDAD
     // =============================
-    const imgData = canvas.toDataURL("image/jpeg", 0.92);  // ⬆️ De 0.85 a 0.92
+    const imgData = canvas.toDataURL("image/jpeg", 0.92);
 
     const pdf = new jsPDF("p", "mm", "a4");
 
@@ -298,7 +320,7 @@ async function generarPDF() {
       pdfWidth,
       imgHeight,
       undefined,
-      "SLOW"    // ⬆️ De "FAST" a "SLOW" para mejor compresión
+      "SLOW"
     );
 
     heightLeft -= pageHeight;
