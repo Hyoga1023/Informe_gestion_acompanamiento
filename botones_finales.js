@@ -180,28 +180,6 @@ async function generarPDF() {
     });
 
     // =============================
-    // SINCRONIZAR VISIBILIDAD DE TEXTAREAS (checkboxes con toggleObservacion)
-    // Problema: cloneNode copia el display:none del CSS inicial pero no
-    // re-ejecuta toggleObservacion(), así que aunque el checkbox quede checked
-    // en el clon, su textarea asociado permanece oculto → se ve disparejo en PDF.
-    // Solución: forzar el display correcto leyendo el estado real del DOM original.
-    // =============================
-    const checksConToggle = [
-      { checkId: "checkCasosPendientes",       obsId: "obsCasosPendientes"       },
-      { checkId: "checkCompromisosEmpleador",  obsId: "obsCompromisosEmpleador"  },
-      { checkId: "checkCompromisosProteccion", obsId: "obsCompromisosProteccion" },
-    ];
-
-    checksConToggle.forEach(({ checkId, obsId }) => {
-      const checkOriginal = main.querySelector(`#${checkId}`);
-      const obsClonado    = mainClone.querySelector(`#${obsId}`);
-
-      if (checkOriginal && obsClonado) {
-        obsClonado.style.display = checkOriginal.checked ? "block" : "none";
-      }
-    });
-
-    // =============================
     // COPIAR VALORES DE SELECTS
     // =============================
     const selectsOriginales = main.querySelectorAll("select");
@@ -246,12 +224,68 @@ async function generarPDF() {
         divReemplazo.style.overflow = "visible";
         divReemplazo.style.boxSizing = "border-box";
         
+        // Preservar el id para que el bloque de sincronización pueda encontrarlo después
+        if (textareasClonados[index].id) {
+          divReemplazo.id = textareasClonados[index].id;
+        }
+
         // Insertar el texto
         divReemplazo.textContent = textoOriginal;
         
         // Reemplazar el textarea con el div
         textareasClonados[index].parentNode.replaceChild(divReemplazo, textareasClonados[index]);
       }
+    });
+
+    // =============================
+    // SINCRONIZAR VISIBILIDAD DE DIVS (antes textareas) CON CHECKBOXES
+    // Se ejecuta DESPUÉS de la conversión a divs para no ser pisado por getComputedStyle.
+    // Muestra el div SOLO si el check está marcado Y tiene texto — si vacío, oculto.
+    // =============================
+    const checksConToggle = [
+      { checkId: "checkCasosPendientes",       obsId: "obsCasosPendientes"       },
+      { checkId: "checkCompromisosEmpleador",  obsId: "obsCompromisosEmpleador"  },
+      { checkId: "checkCompromisosProteccion", obsId: "obsCompromisosProteccion" },
+    ];
+
+    checksConToggle.forEach(({ checkId, obsId }) => {
+      const checkOriginal = main.querySelector(`#${checkId}`);
+      // Buscar el div reemplazo por data-id que pusimos, o buscar el que quedó en esa posición
+      // Como el textarea fue reemplazado por un div, buscamos por id en el clon
+      const divClonado = mainClone.querySelector(`#${obsId}`);
+
+      if (checkOriginal) {
+        const tieneTexto = document.getElementById(obsId)?.value?.trim() !== "";
+        const mostrar = checkOriginal.checked && tieneTexto;
+
+        if (divClonado) {
+          divClonado.style.display = mostrar ? "block" : "none";
+        }
+      }
+    });
+
+    // =============================
+    // SINCRONIZAR VISIBILIDAD DE SUBCHECKS (gestión de deudas e inconsistencias)
+    // Mismo problema: cloneNode copia display del DOM real sin respetar el estado
+    // del subcheck. Se oculta el textarea/div si el check no está marcado o está vacío.
+    // =============================
+    mainClone.querySelectorAll(".subcheck").forEach(checkClonado => {
+      const checkOriginal = main.querySelector(`#${checkClonado.id}`);
+      if (!checkOriginal) return;
+
+      const filaClonada = checkClonado.closest(".check-item");
+      if (!filaClonada) return;
+
+      const divObs = filaClonada.nextElementSibling;
+      if (!divObs) return;
+
+      const estaChecked = checkOriginal.checked;
+      const obsId = divObs.id;
+      const tieneTexto = obsId
+        ? document.getElementById(obsId)?.value?.trim() !== ""
+        : false;
+
+      divObs.style.display = (estaChecked && tieneTexto) ? "block" : "none";
     });
 
     // =============================
