@@ -71,7 +71,10 @@ async function descargarExcel() {
       document.getElementById("obsProximoEncuentro").value || "",
 
     "Encuesta de Satisfacción":
-      document.querySelector('input[name="encuestaSatisfaccion"]:checked')?.value || ""
+      document.querySelector('input[name="encuestaSatisfaccion"]:checked')?.value || "",
+
+    "Caso Salesforce":
+      document.getElementById("casoSalesforce")?.value || ""
   };
 
   // =====================

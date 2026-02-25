@@ -506,6 +506,39 @@ textarea#representante {
 .observacion-input::placeholder {
     color: #999;
 }
+/* ===================================== */
+/* ENCUESTA + CASO SALESFORCE            */
+/* ===================================== */
+.encuesta-salesforce-row {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-start;
+  gap: 50px;
+  flex-wrap: wrap;
+}
+
+.encuesta-bloque {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.salesforce-bloque {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.salesforce-input {
+  width: 200px !important;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+/* ===================================== */
+
 .proximo-obs {
   display: none;
   flex-direction: column;

@@ -324,22 +324,40 @@
       </div>
     </div>
 
-    <!-- Encuesta de Satisfacción -->
-    <div class="check-bloque">
-      <div class="check-header" style="margin-bottom: 12px;">
-        <strong>¿El empleador contestó la encuesta de satisfacción?</strong>
+    <!-- Encuesta de Satisfacción + Caso Salesforce -->
+    <div class="check-bloque encuesta-salesforce-row">
+
+      <div class="encuesta-bloque">
+        <div class="check-header" style="margin-bottom: 12px;">
+          <strong>¿El empleador contestó la encuesta de satisfacción?</strong>
+        </div>
+        <div class="radio-group">
+          <label class="radio-label">
+            <input type="radio" name="encuestaSatisfaccion" value="si" class="radio-input">
+            <span>SÍ</span>
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="encuestaSatisfaccion" value="no" class="radio-input">
+            <span>NO</span>
+          </label>
+        </div>
       </div>
 
-      <div class="radio-group">
-        <label class="radio-label">
-          <input type="radio" name="encuestaSatisfaccion" value="si" class="radio-input">
-          <span>SÍ</span>
+      <div class="salesforce-bloque">
+        <label class="check-header" for="casoSalesforce" style="display:block; margin-bottom: 8px;">
+          <strong>Caso Salesforce</strong>
         </label>
-        <label class="radio-label">
-          <input type="radio" name="encuestaSatisfaccion" value="no" class="radio-input">
-          <span>NO</span>
-        </label>
+        <input
+          type="text"
+          id="casoSalesforce"
+          name="casoSalesforce"
+          class="form-input salesforce-input"
+          placeholder="Ej: SER - 00000000"
+          maxlength="20"
+          oninput="this.value = this.value.toUpperCase().replace(/[^A-Z0-9\- ]/g, '')"
+        >
       </div>
+
     </div>
 
   </div>
