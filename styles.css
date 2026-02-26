@@ -175,14 +175,14 @@ main{
     flex-direction: column;
     width: 100%;
     align-items: center;
-    padding: 15px; /* 👈 REDUCIDO de 20px a 15px */
+    padding: 15px;
 }
 
 main h3{
     font-size: 1.2rem;
     font-weight: 600;
     color: var(--color-2);
-    margin-bottom: 12px; /* 👈 REDUCIDO de 30px a 12px */
+    margin-bottom: 12px;
     text-align: center;
 }
 .info_basica{
@@ -192,16 +192,16 @@ main h3{
     align-items: center;
     width: 100%;
     max-width: 1500px;
-    padding: 10px; /* 👈 REDUCIDO de 20px a 10px */
-    margin-bottom: 5px; /* 👈 NUEVO - Reduce espacio entre secciones */
+    padding: 10px;
+    margin-bottom: 5px;
 }
 .info_basica_recuadro{
     display: grid;
     grid-template-columns: 1fr 1fr 2fr;
-    gap: 12px; /* 👈 REDUCIDO de 15px a 12px */
+    gap: 12px;
     width: 100%;
     max-width: 1500px;
-    padding: 20px; /* 👈 REDUCIDO de 30px a 20px */
+    padding: 20px;
     border: 2px solid var(--color-2);
     border-radius: 8px;
     background-color: rgba(255, 255, 255, 0.7);
@@ -212,8 +212,8 @@ main h3{
     flex-direction: column;
     width: 100%;
     max-width: 1500px;
-    gap: 12px; /* 👈 REDUCIDO de 15px a 12px */
-    padding: 20px; /* 👈 REDUCIDO de 30px a 20px */
+    gap: 12px;
+    padding: 20px;
     border: 2px solid var(--color-2);
     border-radius: 8px;
     background-color: rgba(255, 255, 255, 0.7);
@@ -225,12 +225,12 @@ main h3{
 .ejecutivo{
     display: flex;
     justify-content: space-between;
-    gap: 15px; /* 👈 REDUCIDO de 20px a 15px */
+    gap: 15px;
 }
 .form-group {
     display: flex;
     flex-direction: column;
-    gap: 8px; /* 👈 REDUCIDO de 10px a 8px */
+    gap: 8px;
 }
 
 .form-group-small {
@@ -407,20 +407,20 @@ textarea#representante {
 .canales-container {
     width: 100%;
     max-width: 1500px;
-    padding: 20px; /* 👈 REDUCIDO de 30px a 20px */
+    padding: 20px;
     border: 2px solid var(--color-2);
     border-radius: 8px;
     background-color: rgba(255, 255, 255, 0.7);
     display: flex;
     flex-direction: column;
-    gap: 12px; /* 👈 REDUCIDO de 15px a 12px */
+    gap: 12px;
 }
 
 .canal-row {
     display: flex;
-    gap: 25px; /* 👈 REDUCIDO de 30px a 25px */
+    gap: 25px;
     align-items: flex-start;
-    padding-bottom: 15px; /* 👈 REDUCIDO de 20px a 15px */
+    padding-bottom: 15px;
     border-bottom: 1px solid #E0E0E0;
 }
 
@@ -433,7 +433,7 @@ textarea#representante {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 12px; /* 👈 REDUCIDO de 15px a 12px */
+    gap: 12px;
 }
 
 .canal-label {
@@ -445,7 +445,7 @@ textarea#representante {
 
 .radio-group {
     display: flex;
-    gap: 15px; /* 👈 REDUCIDO de 20px a 15px */
+    gap: 15px;
     align-items: center;
 }
 
@@ -470,7 +470,7 @@ textarea#representante {
     flex: 3;
     display: flex;
     flex-direction: column;
-    gap: 8px; /* 👈 REDUCIDO de 10px a 8px */
+    gap: 8px;
 }
 
 .observacion-item label {
@@ -479,7 +479,6 @@ textarea#representante {
     color: var(--color-2);
 }
 
-/* 🔧 MODIFICADO: Unificado con estilo de gestiones */
 .observacion-input {
     width: 100%;
     padding: 8px;
@@ -506,6 +505,7 @@ textarea#representante {
 .observacion-input::placeholder {
     color: #999;
 }
+
 /* ===================================== */
 /* ENCUESTA + CASO SALESFORCE            */
 /* ===================================== */
@@ -544,7 +544,7 @@ textarea#representante {
   flex-direction: column;
   font-size: 0.9rem;
   font-weight: 500;
-  color: var(--color-2) ;
+  color: var(--color-2);
   gap: 5px;
 }
 .firmas {
@@ -554,20 +554,20 @@ textarea#representante {
   max-width: 1500px;
   padding: 5px;
   margin-right: 30px;
-  margin-top: 10px; /* 👈 NUEVO - Reduce espacio antes de firmas */
+  margin-top: 10px;
 }
 .grupo_firmas{
   display: flex;
   justify-content: center;
   flex-direction: column;
   color: var(--color-2);
-  gap: 8px; /* 👈 REDUCIDO de 10px a 8px */
+  gap: 8px;
   font-weight: 600;
 }
 .firmas2 {
   display: flex;
   justify-content: center;
-  gap: 25px; /* 👈 REDUCIDO de 30px a 25px */
+  gap: 25px;
   color: var(--color-2);
   align-items: flex-end;
   padding-top: 5px;
@@ -577,13 +577,13 @@ textarea#representante {
   display: flex;
   flex-direction: column;
   width: 250px;
-  gap: 8px; /* 👈 REDUCIDO de 10px a 8px */
+  gap: 8px;
   border: 2px solid var(--color-2);
   font-weight: 400;
   border-radius: 8px;
   background-color: rgba(255, 255, 255, 0.7);
   padding-bottom: 10px;
-  padding-top: 80px; /* 👈 REDUCIDO de 100px a 80px */
+  padding-top: 80px;
   padding-right: 10px;
   padding-left: 10px;
   text-align: center;
@@ -651,6 +651,7 @@ footer h2{
 footer p{
     color: #888;
 }
+
 /* ===================================== */
 /* BOTONES DE ACCIÓN */
 /* ===================================== */
@@ -701,7 +702,6 @@ footer p{
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
-/* Botón Guardar - Amarillo de Protección */
 .btn-guardar {
     background-color: var(--color-1);
     color: var(--color-2);
@@ -713,7 +713,6 @@ footer p{
     border-color: var(--color-2);
 }
 
-/* Botón Excel - Verde */
 .btn-excel {
     background-color: #107C41;
     color: var(--color-blanco);
@@ -724,7 +723,6 @@ footer p{
     background-color: #0e6b38;
 }
 
-/* Botón PDF - Azul oscuro de Protección */
 .btn-pdf {
     background-color: var(--color-2);
     color: var(--color-blanco);
@@ -740,7 +738,6 @@ footer p{
     border-color: #070707;
 }
 
-/* Botón Borrar - Rojo (separado) */
 .btn-borrar {
     background-color: #dc3545;
     color: var(--color-blanco);
@@ -750,7 +747,6 @@ footer p{
 .btn-borrar:hover {
     background-color: #c82333;
 }
-
 
 /*---------------estilos pagina 2 --------------------*/
 .botonn-container {
@@ -790,6 +786,7 @@ footer p{
     transform: translateY(0);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
+
 #live2d-widget {
   position: fixed;
   right: 10px;
@@ -870,10 +867,9 @@ footer p{
   pointer-events: auto;
 }
 
-
 /*------------------------------------------------------------------------*/
 /* Responsive - Para pantallas pequeñas */
-@media (max-width: 968px) {
+@media (max-width: 768px) {
     .botones-container {
         flex-direction: column;
         align-items: stretch;
@@ -893,4 +889,20 @@ footer p{
     .btn {
         width: 100%;
     }
+}
+
+/* ============================================ */
+/* SWEETALERT2 - BLOQUEO MÓVIL                  */
+/* ============================================ */
+
+.swal-mobile-block {
+  border: 2px solid #dfca0e !important;
+  border-radius: 14px !important;
+  font-family: "Ubuntu", sans-serif !important;
+}
+
+.swal-mobile-title {
+  color: #091057 !important;
+  font-size: 1.3rem !important;
+  font-weight: 700 !important;
 }
