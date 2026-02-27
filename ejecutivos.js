@@ -1,6 +1,6 @@
 // Tus datos del JSON
 const ejecutivos = [
-  { "nombre": "Alex bandera", "correo": "alex.bandera@proteccion.com.co" },
+  { "nombre": "Alex Marcial Bandera Nova", "correo": "alex.bandera@proteccion.com.co" },
   { "nombre": "Nancy Florez", "correo": "nancy.florez@proteccion.com.co" },
   { "nombre": "Carol Andrea lasso", "correo": "carol.lasso@proteccion.com.co" },
   { "nombre": "Sindy Johanna Cardona Barrientos", "correo": "sindy.barrientos@proteccion.com.co" },
