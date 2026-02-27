@@ -5,7 +5,7 @@ const ejecutivos = [
   { "nombre": "Carol Andrea lasso Cardona", "correo": "carol.lasso@proteccion.com.co" },
   { "nombre": "Sindy Johanna Cardona Barrientos", "correo": "sindy.barrientos@proteccion.com.co" },
   { "nombre": "Geraldin Mora Diaz", "correo": "geraldin.mora@proteccion.com.co" },
-  { "nombre": "Sonia Gonzalez", "correo": "sonia.gonzalez@proteccion.com.co" },
+  { "nombre": "Sonia Tatiana Gonzalez Saavedra", "correo": "sonia.gonzalez@proteccion.com.co" },
   { "nombre": "Yordy Camilo Peñuela Rodriguez", "correo": "yordy.penuela@proteccion.com.co" },
   { "nombre": "Arianne Marcela Reyes Suarez", "correo": "arianne.reyess@proteccion.com.co" },
   { "nombre": "Romulo Alfredo Sandoval Hernandez", "correo": "romulo.sandoval@proteccion.com.co" },
