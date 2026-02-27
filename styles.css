@@ -197,7 +197,7 @@ main h3{
 }
 .info_basica_recuadro{
     display: grid;
-    grid-template-columns: 1fr 1fr 2fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 12px;
     width: 100%;
     max-width: 1500px;
@@ -218,8 +218,16 @@ main h3{
     border-radius: 8px;
     background-color: rgba(255, 255, 255, 0.7);
 }
+.info_basica_recuadro .form-group-large {
+  grid-column: span 2;
+}
+
 .info_basica_recuadro .asesor {
-  grid-column: 1 / -1;
+  grid-column: span 2;
+}
+
+.info_basica_recuadro .alerta-ciclo-campo {
+  grid-column: span 2;
 }
 
 .ejecutivo{
@@ -534,8 +542,6 @@ textarea#representante {
 .salesforce-input {
   width: 200px !important;
   text-transform: uppercase;
-  font-weight: 600;
-  letter-spacing: 1px;
 }
 /* ===================================== */
 
@@ -587,6 +593,30 @@ textarea#representante {
   padding-right: 10px;
   padding-left: 10px;
   text-align: center;
+}
+
+/* ===================================== */
+/* ALERTA CICLO COBRO UGPP               */
+/* ===================================== */
+.alerta-ciclo-input {
+  background-color: var(--color-blanco) !important;
+  color: var(--color-2) !important;
+}
+
+.alerta-ciclo-input[readonly] {
+  cursor: default;
+}
+
+/* Cuando tiene valor, se pinta de amarillo suave para llamar la atención */
+.alerta-ciclo-input.con-valor {
+  border-color: var(--color-1) !important;
+}
+
+/* ===================================== */
+/* OCULTAR EN PDF (clase no-pdf)         */
+/* ===================================== */
+.no-pdf-oculto {
+  display: none !important;
 }
 
 /*-----------------------------Footer-----------------------------*/

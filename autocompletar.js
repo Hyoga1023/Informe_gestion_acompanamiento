@@ -21,7 +21,8 @@ const camposGestion = [
     'valorAportesPO',
     'valorPagosCES',
     'valorPagosPV',
-    'valorAportesPV'
+    'valorAportesPV',
+    'alertaCiclo'
 ];
 
 // Variable para almacenar la base de datos en memoria (cache)
@@ -144,6 +145,7 @@ function autocompletarDatos(empleador) {
             if (campo) {
                 campo.value = '';
                 delete campo.dataset.modificado;
+                if (id === 'alertaCiclo') campo.classList.remove('con-valor');
             }
         });
 
@@ -175,7 +177,8 @@ function autocompletarDatos(empleador) {
         valorAportesPO:     empleador.valorAportesPO     || empleador.aportes_po     || '',
         valorPagosCES:      empleador.valorPagosCES      || empleador.pagos_ces      || '',
         valorPagosPV:       empleador.valorPagosPV       || empleador.pagos_pv       || '',
-        valorAportesPV:     empleador.valorAportesPV     || empleador.aportes_pv     || ''
+        valorAportesPV:     empleador.valorAportesPV     || empleador.aportes_pv     || '',
+        alertaCiclo:        empleador.alertaCicloCobro   || empleador.alerta_ciclo_cobro || ''
     };
 
     camposGestion.forEach(id => {
@@ -185,7 +188,16 @@ function autocompletarDatos(empleador) {
 
             // Flash visual igual que empresa/asesor
             campo.style.backgroundColor = '#d4edda';
-            setTimeout(() => { campo.style.backgroundColor = ''; }, 1500);
+            setTimeout(() => {
+                campo.style.backgroundColor = '';
+
+                // Para alertaCiclo, si tiene valor se mantiene el color amarillo
+                if (id === 'alertaCiclo' && campo.value.trim()) {
+                    campo.classList.add('con-valor');
+                } else if (id === 'alertaCiclo') {
+                    campo.classList.remove('con-valor');
+                }
+            }, 1500);
         }
     });
 

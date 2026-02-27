@@ -10,6 +10,7 @@
  *     "nit": "800123456",
  *     "razon_social": "EMPRESA EJEMPLO S.A.S",
  *     "asesor_comercial": "Juan Pérez",
+ *     "alerta_ciclo_cobro": "3. PREJURIDICO 1",
  *     "deuda_presunta": "$ 8.563.712",
  *     "deuda_real": "$ 1.069.458",
  *     "pagos_po": "",
@@ -20,6 +21,17 @@
  *   },
  *   ...
  * ]
+ *
+ * Valores válidos para "alerta_ciclo_cobro" (parametrizado):
+ *   "1. PASO A DEMANDA"
+ *   "2. PREJURIDICO EN FIRME"
+ *   "3. PREJURIDICO 1"
+ *   "4. COBRO NORMAL"
+ *   "5. FUERA DE CICLO"
+ *   "6. EMPRESA EN CEROS"
+ *   "" (vacío si no aplica)
+ *
+ * NOTA: Este campo es confidencial y NO aparece en el PDF generado.
  */
 
 // Inicializar localForage con configuración específica
@@ -95,7 +107,8 @@ inputFile.addEventListener('change', async (e) => {
                 valorAportesPO:     (emp.aportes_po      || '').trim(),
                 valorPagosCES:      (emp.pagos_ces       || '').trim(),
                 valorPagosPV:       (emp.pagos_pv        || '').trim(),
-                valorAportesPV:     (emp.aportes_pv      || '').trim()
+                valorAportesPV:     (emp.aportes_pv      || '').trim(),
+                alertaCicloCobro:   (emp.alerta_ciclo_cobro || '').trim()
             };
         });
 

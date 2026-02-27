@@ -18,6 +18,7 @@ async function descargarExcel() {
     "NIT": document.getElementById("nit").value || "",
     "Razón Social": document.getElementById("empresa").value || "",
     "Asesor Comercial": document.getElementById("asesor").value || "",
+    "Alerta Ciclo Cobro UGPP": document.getElementById("alertaCiclo")?.value || "",
     "Contactos Empresa": document.getElementById("representante").value || "",
     "Ejecutivo Asistencia Empresarial": nombreEjecutivo,
     "E-mail Ejecutivo": document.getElementById("emailEjecutivo").value || "",
@@ -301,6 +302,14 @@ async function generarPDF() {
       }
     });
 
+    // =============================
+    // OCULTAR CAMPOS NO-PDF EN EL CLON
+    // Campos marcados con clase .no-pdf no deben aparecer en el documento
+    // =============================
+    captura.querySelectorAll('.no-pdf').forEach(el => {
+      el.classList.add('no-pdf-oculto');
+    });
+
     document.body.appendChild(captura);
 
     // Delay para renderizado
@@ -310,7 +319,7 @@ async function generarPDF() {
     // CAPTURA DE ALTA CALIDAD
     // =============================
     const canvas = await html2canvas(captura, {
-      scale: 2,
+      scale: 3,
       useCORS: true,
       backgroundColor: "#ffffff",
       logging: false,
@@ -333,7 +342,7 @@ async function generarPDF() {
     // =============================
     // CREAR PDF CON MEJOR CALIDAD
     // =============================
-    const imgData = canvas.toDataURL("image/jpeg", 0.92);
+    const imgData = canvas.toDataURL("image/jpeg", 0.88);
 
     const pdf = new jsPDF("p", "mm", "a4");
 
