@@ -222,12 +222,15 @@ main h3{
   grid-column: span 2;
 }
 
-.info_basica_recuadro .asesor {
-  grid-column: span 2;
+/* Fila asesor + alerta: ocupa todo el ancho del grid y se divide en flex */
+.asesor-alerta-row {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 12px;
 }
 
-.info_basica_recuadro .alerta-ciclo-campo {
-  grid-column: span 2;
+.asesor-alerta-row .form-group {
+  flex: 1;
 }
 
 .ejecutivo{
