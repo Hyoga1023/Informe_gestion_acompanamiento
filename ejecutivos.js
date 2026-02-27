@@ -2,7 +2,7 @@
 const ejecutivos = [
   { "nombre": "Alex Marcial Bandera Nova", "correo": "alex.bandera@proteccion.com.co" },
   { "nombre": "Nancy Florez", "correo": "nancy.florez@proteccion.com.co" },
-  { "nombre": "Carol Andrea lasso", "correo": "carol.lasso@proteccion.com.co" },
+  { "nombre": "Carol Andrea lasso Cardona", "correo": "carol.lasso@proteccion.com.co" },
   { "nombre": "Sindy Johanna Cardona Barrientos", "correo": "sindy.barrientos@proteccion.com.co" },
   { "nombre": "Geraldin Mora Diaz", "correo": "geraldin.mora@proteccion.com.co" },
   { "nombre": "Sonia Gonzalez", "correo": "sonia.gonzalez@proteccion.com.co" },
