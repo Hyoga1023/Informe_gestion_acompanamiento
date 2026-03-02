@@ -324,9 +324,6 @@ textarea#representante {
   transition: background-color 9999s ease-out 0s;
 }
 
-.form-input::selection {
-  background: transparent;
-}
 .check-header {
   font-size: 1rem;
   font-weight: 600;
@@ -898,6 +895,11 @@ footer p{
   pointer-events: auto;
 }
 
+textarea.form-input::selection,
+textarea#representante::selection {
+  background: #b3d4fc; 
+  color: var(--color-2);
+}
 /*------------------------------------------------------------------------*/
 /* Responsive - Para pantallas pequeñas */
 /* Pantallas medianas — el grid baja a 2 columnas ordenadamente */

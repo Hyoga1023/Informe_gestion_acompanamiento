@@ -75,28 +75,33 @@ function activarAutoguardado() {
 function aplicarDatosFormulario(datos) {
 
   // PASO 1: Cargar todos los valores
-  Object.keys(datos).forEach(key => {
+Object.keys(datos).forEach(key => {
 
     const el = document.getElementById(key);
 
     if (el) {
-
       if (el.type === "checkbox") {
         el.checked = datos[key];
         return;
       }
-
       el.value = datos[key];
+      return; 
     }
 
-    // radios
-    const radio = document.querySelector(
-      `input[name="${key}"][value="${datos[key]}"]`
-    );
-
-    if (radio) radio.checked = true;
-
-  });
+    // Solo buscar radios si NO encontró elemento por ID
+    // Y solo si el valor es corto y seguro (sin caracteres problemáticos)
+    const valor = datos[key];
+    if (typeof valor === "string" && valor.length < 50 && !/["<>\n\r\\]/.test(valor)) {
+      try {
+        const radio = document.querySelector(
+          `input[name="${key}"][value="${valor}"]`
+        );
+        if (radio) radio.checked = true;
+      } catch (e) {
+        console.warn(`⚠️ Selector inválido para [${key}]:`, e.message);
+      }
+    }
+});
 
   // PASO 2: Restaurar visibilidad de observaciones
   restaurarVisibilidadObservaciones();
