@@ -151,11 +151,28 @@ header{
 
 .header-title2{
     flex: 1;
+    flex-direction: column;
     text-align: center;
     font-family: "Diodrum", sans-serif;
     color: var(--color-2);
     font-size: 3rem;
     padding: 5px 20px;
+}
+.bloque_logo{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: 5px;
+    padding-right: 25px;
+}
+.bloque_logo p{
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--color-2);
+}
+.bloque_logo img{
+    width: 60px;
+    height: auto;
 }
 
 .logo-link {
@@ -650,7 +667,22 @@ footer img{
     width: 100px;
     height: auto;
 }
-
+.bloque_logo_footer{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: 5px;
+    padding-right: 30px;
+}
+.bloque_logo_footer p{
+    font-size: 0.6rem;
+    font-weight: 500;
+    color: var(--color-blanco);
+}
+.bloque_logo_footer img{
+    width: 50px;
+    height: auto;
+}
 .footer-derecha a{
     color: var(--color-blanco);
     margin-left: 0px;
