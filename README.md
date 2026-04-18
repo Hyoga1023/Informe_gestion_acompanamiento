@@ -3,7 +3,7 @@
 Aplicación web para el registro y gestión de visitas a grandes empleadores, diseñada para ejecutivos de asistencia empresarial y ejecutivos de empresas PREMIUM de Protección S.A.
 
 ![Estado](https://img.shields.io/badge/Estado-En%20Desarrollo-yellow)
-![Versión](https://img.shields.io/badge/Versión-1.2-blue)
+![Versión](https://img.shields.io/badge/Versión-1.3-blue)
 ![Licencia](https://img.shields.io/badge/Licencia-Privado-red)
 
 ---
@@ -20,6 +20,8 @@ Sistema web que permite a los ejecutivos de asistencia empresarial y ejecutivos 
 - ✅ Generación de documentos PDF para impresión y firma
 - ✅ Historial de visitas accesible
 - ✅ Alertas y confirmaciones con SweetAlert2
+- ✅ Conversión de base de datos Excel a JSON con protocolo estandarizado
+- ✅ Control de acceso por contraseña en módulos restringidos
 
 ---
 
@@ -61,6 +63,94 @@ Sistema web que permite a los ejecutivos de asistencia empresarial y ejecutivos 
 
 ---
 
+## Módulo: Conversor Excel → JSON
+
+### Descripción
+Herramienta de uso interno y acceso restringido que convierte la base de datos de empleadores desde un archivo Excel al formato JSON estructurado requerido por la aplicación. Opera completamente en el navegador — ningún dato sale del equipo.
+
+### Control de Acceso
+El módulo está protegido por contraseña mediante `seguridad.js`. Al ingresar a la página, la interfaz permanece bloqueada hasta que se ingrese la clave correcta. Los intentos fallidos muestran un mensaje de acceso denegado. La contraseña se valida contra un hash almacenado — nunca se guarda en texto plano en el código.
+
+### Protocolo de Conversión
+El conversor aplica un conjunto de reglas estrictas sobre los datos del Excel antes de generar el JSON:
+
+**Campo `nit`**
+- Siempre string, nunca número
+- Se eliminan puntos, espacios, guión y dígito de verificación
+- Ejemplo: `800.123.456-1` → `"800123456"`
+
+**Campo `asesor_comercial`**
+- Nunca vacío
+- Si la celda está vacía en el Excel, se escribe `"Sin Consultor Asignado"`
+
+**Campo `alerta_ciclo_cobro`**
+- Campo obligatorio y parametrizado
+- Solo acepta uno de estos 6 valores exactos:
+  - `"1. PASO A DEMANDA"`
+  - `"2. PREJURIDICO EN FIRME"`
+  - `"3. PREJURIDICO 1"`
+  - `"4. COBRO NORMAL"`
+  - `"5. FUERA DE CICLO"`
+  - `"6. EMPRESA EN CEROS"`
+- Valores no reconocidos generan una advertencia visible en pantalla para revisión manual
+- Este campo es **confidencial** — no aparece en el PDF del empleador
+
+**Campos monetarios** (`deuda_presunta`, `deuda_real`, `pagos_po`, `aportes_po`, `pagos_ces`, `pagos_pv`, `aportes_pv`)
+- Formato: `"$ 1.234.567"` (símbolo $, espacio, miles separados con punto, sin decimales)
+- Celdas vacías, con `0`, `$ -` o `$ 0` se convierten a `""`
+- Nunca se escribe `null`, `0` ni `"$ -"` en el JSON
+
+### Estructura del JSON resultante
+
+```json
+{
+  "empleadores": [
+    {
+      "nit": "900100001",
+      "razon_social": "NOMBRE DE LA EMPRESA S A S",
+      "asesor_comercial": "NOMBRE DEL ASESOR",
+      "alerta_ciclo_cobro": "4. COBRO NORMAL",
+      "deuda_presunta": "$ 8.563.712",
+      "deuda_real": "$ 1.069.458",
+      "pagos_po": "",
+      "aportes_po": "",
+      "pagos_ces": "$ 450.000",
+      "pagos_pv": "",
+      "aportes_pv": ""
+    }
+  ]
+}
+```
+
+### Mapeo de columnas Excel → JSON
+
+| Columna en Excel | Campo en JSON |
+|---|---|
+| NIT | `nit` |
+| Razón Social | `razon_social` |
+| Asesor Comercial | `asesor_comercial` |
+| Alerta Ciclo Cobro UGPP | `alerta_ciclo_cobro` |
+| Deuda Presunta | `deuda_presunta` |
+| Deuda Real | `deuda_real` |
+| Pagos sin planilla (PO) | `pagos_po` |
+| Rezagos sin Acreditar (PO) | `aportes_po` |
+| Pagos sin planilla (CES) | `pagos_ces` |
+| Pagos sin planilla (PV) | `pagos_pv` |
+| Rezagos sin Acreditar (PV) | `aportes_pv` |
+
+### Verificación automática post-conversión
+Tras cada conversión el módulo ejecuta un checklist de 7 puntos visible en pantalla:
+
+- [ ] NITs sin puntos, guiones ni dígito de verificación
+- [ ] Ningún campo monetario vacío contiene `null`, `0` o `"$ -"`
+- [ ] Valores monetarios con formato `"$ 1.234.567"`
+- [ ] Cada registro tiene los 11 campos obligatorios
+- [ ] El JSON tiene la estructura `{"empleadores": [...]}`
+- [ ] Ningún `asesor_comercial` está vacío
+- [ ] Todos los `alerta_ciclo_cobro` tienen uno de los 6 valores válidos
+
+---
+
 ## Tecnologías Utilizadas
 
 ### Frontend
@@ -70,9 +160,9 @@ Sistema web que permite a los ejecutivos de asistencia empresarial y ejecutivos 
 
 ### Librerías
 - **localForage** - Almacenamiento local extendido (IndexedDB wrapper)
-- **SheetJS (xlsx.js)** - Generación de archivos Excel
+- **SheetJS (xlsx.js)** - Generación de archivos Excel y lectura para conversión a JSON
 - **jsPDF + html2canvas** - Generación de documentos PDF
-- **SweetAlert2** - Alertas y diálogos de confirmación estilizados
+- **SweetAlert2** - Alertas, diálogos de confirmación y control de acceso por contraseña
 - **Google Fonts (Ubuntu)** - Tipografía corporativa
 
 ### Hosting
@@ -86,7 +176,7 @@ Sistema web que permite a los ejecutivos de asistencia empresarial y ejecutivos 
 actas-proteccion/
 │
 ├── index.html                 # Página principal (formulario de visita)
-├── visitas.html               # Gestión de visitas guardadas
+├── excel_a_json.html          # Módulo conversor Excel → JSON (acceso restringido)
 ├── carga_base.html            # Carga de base de datos
 │
 ├── reset.css                  # Reset de estilos
@@ -104,6 +194,8 @@ actas-proteccion/
 ├── autosave.js                # Autoguardado automático del formulario
 ├── limpiar.js                 # Limpieza y reseteo del formulario
 ├── sweetAlert2.js             # Configuración de alertas y confirmaciones
+├── excel_a_json.js            # Lógica del conversor Excel → JSON (protocolo Protección)
+├── seguridad.js               # Control de acceso por contraseña (módulos restringidos)
 │
 ├── img/
 │   ├── icono.png              # Favicon
@@ -133,7 +225,7 @@ Los campos de observaciones aparecen automáticamente cuando se marca un checkbo
 Los datos del formulario se guardan automáticamente mientras el asesor trabaja, evitando pérdida de información por cierres accidentales del navegador o interrupciones inesperadas.
 
 ### Alertas con SweetAlert2
-Confirmaciones, mensajes de éxito y advertencias se muestran mediante diálogos estilizados con SweetAlert2, mejorando la experiencia de usuario frente a los `alert()` nativos del navegador.
+Confirmaciones, mensajes de éxito, advertencias y control de acceso se muestran mediante diálogos estilizados con SweetAlert2, mejorando la experiencia de usuario frente a los `alert()` nativos del navegador.
 
 ### Almacenamiento Local
 Los datos se guardan automáticamente en el navegador del usuario mediante localForage, permitiendo:
@@ -158,6 +250,11 @@ Los datos se guardan automáticamente en el navegador del usuario mediante local
   - Sección de firmas
   - Pie de página con fecha de generación
 
+### JSON (base de datos de empleadores)
+- Generado desde el módulo `excel_a_json.html`
+- Protocolo estandarizado de transformación y validación
+- Listo para ser consumido por el sistema de autocompletado por NIT
+
 ---
 
 ## Almacenamiento de Datos
@@ -173,18 +270,18 @@ Cada visita se almacena con la siguiente información:
   fecha: "2024-02-03",
   asesor: "Nombre del Asesor",
   ejecutivo: "Nombre del Ejecutivo",
-  
+
   // Checklist con valores y observaciones
   checklist: {
     deudaPresunta: { valor: "$1.234.567", observacion: "..." },
     deudaReal: { valor: "$890.123", observacion: "..." },
     // ... más items
   },
-  
+
   // Conclusiones
   compromisos: { ... },
   agendamiento: { ... },
-  
+
   // Metadatos
   timestamp: 1707000000000,
   descargada: false
@@ -202,13 +299,13 @@ Formato: `visita-{timestamp}`
 - ✅ Chrome 23+ (2012)
 - ✅ Firefox 10+ (2012)
 - ✅ Safari 7+ (2013)
-- ✅ Edge (todas las versiones)
+- ✅ Edge (todas las versiones) — **recomendado para mayor estabilidad del almacenamiento local**
 - ✅ Opera 15+ (2013)
 
 ### Dispositivos
 - ✅ PC (Windows, Mac, Linux)
 - ✅ Tablets
-- ✅ Móviles (optimizado para desktop)
+- ⚠️ Móviles — bloqueados por diseño (la aplicación está optimizada para escritorio)
 
 ### Requisitos
 - Navegador moderno
@@ -225,6 +322,12 @@ Formato: `visita-{timestamp}`
 - No se transmiten a ningún servidor externo
 - Cada ejecutivo ve únicamente sus propias visitas
 - Privacidad total garantizada
+
+### Control de Acceso
+- El módulo de conversión Excel → JSON está protegido por contraseña mediante `seguridad.js`
+- La contraseña se valida contra un hash — nunca se almacena en texto plano
+- La interfaz permanece completamente bloqueada hasta autenticación exitosa
+- Los intentos fallidos muestran pantalla de acceso denegado
 
 ### Consideraciones
 ⚠️ **Importante:** Los datos pueden perderse si:
@@ -244,6 +347,14 @@ Formato: `visita-{timestamp}`
 3. Los datos se guardan automáticamente en el navegador
 4. Generar Excel/PDF según necesidad
 5. Opcional: Revisar visitas anteriores en "Mis Visitas"
+
+### Para el módulo Excel → JSON
+1. Acceder a `excel_a_json.html`
+2. Ingresar la contraseña de acceso
+3. Arrastrar o seleccionar el archivo `.xlsx` con la base de empleadores
+4. Hacer clic en **Convertir**
+5. Revisar el checklist de verificación y las advertencias si las hay
+6. Descargar el `.json` resultante o copiarlo al portapapeles
 
 ### Para Desarrollo
 ```bash
@@ -296,6 +407,17 @@ Para actualizar la aplicación:
 
 ---
 
+## Historial de Versiones
+
+| Versión | Descripción |
+|---|---|
+| 1.3 | Módulo conversor Excel → JSON con protocolo estandarizado y control de acceso por contraseña |
+| 1.2 | Integración SweetAlert2, bloqueo de dispositivos móviles, campo Caso Salesforce |
+| 1.1 | Autoguardado, campo Alerta Ciclo Cobro UGPP, correcciones de bugs en producción |
+| 1.0 | Versión inicial — formulario de visita, Excel y PDF |
+
+---
+
 ## Desarrollador
 
 **Cesar Martinez**  
@@ -338,6 +460,6 @@ Todos los derechos reservados © 2026
 
 ---
 
-**Última actualización:** Febrero 2026  
-**Versión:** 1.2  
+**Última actualización:** Abril 2026  
+**Versión:** 1.3  
 **Estado:** En Desarrollo Activo
