@@ -1,9 +1,10 @@
 async function descargarExcel() {
 
 // ==========================
-// OBTENER NOMBRE EJECUTIVO (ingreso manual)
+// OBTENER NOMBRE Y CORREO DEL EJECUTIVO (ingreso manual)
 // ==========================
 const nombreEjecutivo = document.getElementById("nombreEjecutivo").value.trim();
+const emailEjecutivo = document.getElementById("emailEjecutivo").value.trim();
 
 if (!nombreEjecutivo) {
     Swal.fire({
@@ -14,7 +15,17 @@ if (!nombreEjecutivo) {
     });
     return;
 }
+const emailEjecutivo = document.getElementById("emailEjecutivo").value.trim();
 
+if (!nombreEjecutivo || !emailEjecutivo) {
+    Swal.fire({
+        icon: 'warning',
+        title: 'Campos requeridos',
+        text: 'Debes ingresar el nombre y el correo del Ejecutivo de Asistencia Empresarial antes de descargar el Excel.',
+        confirmButtonColor: '#091057'
+    });
+    return;
+}
   // ==========================
   // PLANTILLA FIJA DE COLUMNAS
   // ==========================

@@ -47,7 +47,7 @@ localforage.config({
 const btnCargarBase = document.querySelector('.botonn');
 
 // Creamos el input file de forma dinámica y lo ocultamos.
-// Esto es para evitar mostrar el feo input file nativo del navegador.
+// Esto es para evitar mostrar el input file nativo del navegador.
 const inputFile = document.createElement('input');
 inputFile.type = 'file';
 inputFile.accept = '.json';
