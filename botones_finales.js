@@ -10,7 +10,7 @@ if (!nombreEjecutivo) {
     Swal.fire({
         icon: 'warning',
         title: 'Campo requerido',
-        text: 'Debes ingresar el nombre del Ejecutivo de Asistencia Empresarial antes de descargar el Excel.',
+        text: 'Debes ingresar el nombre y el correo del Ejecutivo de Asistencia Empresarial antes de descargar el Excel.',
         confirmButtonColor: '#091057'
     });
     return;
