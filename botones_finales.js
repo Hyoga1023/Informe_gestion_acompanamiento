@@ -6,17 +6,6 @@ async function descargarExcel() {
 const nombreEjecutivo = document.getElementById("nombreEjecutivo").value.trim();
 const emailEjecutivo = document.getElementById("emailEjecutivo").value.trim();
 
-if (!nombreEjecutivo) {
-    Swal.fire({
-        icon: 'warning',
-        title: 'Campo requerido',
-        text: 'Debes ingresar el nombre y el correo del Ejecutivo de Asistencia Empresarial antes de descargar el Excel.',
-        confirmButtonColor: '#091057'
-    });
-    return;
-}
-const emailEjecutivo = document.getElementById("emailEjecutivo").value.trim();
-
 if (!nombreEjecutivo || !emailEjecutivo) {
     Swal.fire({
         icon: 'warning',
