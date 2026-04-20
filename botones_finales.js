@@ -259,8 +259,8 @@ async function generarPDF() {
 
     checksConToggle.forEach(({ checkId, obsId }) => {
       const checkOriginal = main.querySelector(`#${checkId}`);
-      // Buscar el div reemplazo por data-id que pusimos, o buscar el que quedó en esa posición
-      // Como el textarea fue reemplazado por un div, buscamos por id en el clon
+      // Buscar el div reemplazo por data-id o buscar el que quedó en esa posición
+      // buscamos por id en el clon
       const divClonado = mainClone.querySelector(`#${obsId}`);
 
       if (checkOriginal) {
