@@ -1,14 +1,19 @@
 async function descargarExcel() {
 
-  // ==========================
-  // OBTENER NOMBRE EJECUTIVO
-  // ==========================
-  const selectEjecutivo = document.getElementById("nombreEjecutivo");
+// ==========================
+// OBTENER NOMBRE EJECUTIVO (ingreso manual)
+// ==========================
+const nombreEjecutivo = document.getElementById("nombreEjecutivo").value.trim();
 
-  const nombreEjecutivo =
-    selectEjecutivo.value
-      ? selectEjecutivo.options[selectEjecutivo.selectedIndex].text
-      : "";
+if (!nombreEjecutivo) {
+    Swal.fire({
+        icon: 'warning',
+        title: 'Campo requerido',
+        text: 'Debes ingresar el nombre del Ejecutivo de Asistencia Empresarial antes de descargar el Excel.',
+        confirmButtonColor: '#091057'
+    });
+    return;
+}
 
   // ==========================
   // PLANTILLA FIJA DE COLUMNAS
