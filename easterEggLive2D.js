@@ -32,7 +32,7 @@ function hideLive2D() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const phrase = "no quiero estar solo";
+  const phrase = "no estamos solos";
   const textareas = document.querySelectorAll("textarea");
 
   textareas.forEach(area => {
