@@ -98,4 +98,4 @@ Para dudas o reporte de errores, contactar al desarrollador a través de Microso
 
 ---
 
-**Última actualización:** Abril 2026 — **Versión:** 1.4
+**Última actualización:** Mayo 2026 — **Versión:** 1.5
