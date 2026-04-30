@@ -1,5 +1,23 @@
 async function descargarExcel() {
 
+  // ==========================
+  // VALIDACIÓN: OBLIGATORIO SELECCIONAR SI o NO
+  // ==========================
+  const seleccion = document.querySelector('input[name="actualizacionDatos"]:checked');
+  if (!seleccion) {
+    await Swal.fire({
+      title: "Selecciona una opción",
+      text: "Debes marcar SI o NO en 'Actualización de datos en APOLO' antes de generar el Excel.",
+      icon: "warning",
+      confirmButtonText: "Entendido"
+    });
+    return; // Detener ejecución si no hay selección
+  }
+
+  // Guardar valor elegido (si/no)
+  const valorSeleccionado = seleccion.value;
+  console.log("Opción elegida:", valorSeleccionado);
+
 // ==========================
 // OBTENER NOMBRE Y CORREO DEL EJECUTIVO (ingreso manual)
 // ==========================
