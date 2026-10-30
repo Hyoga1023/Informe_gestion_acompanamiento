@@ -45,7 +45,7 @@
     RUTA_IMAGEN: 'img/papa_noel.png',
     ANCHO_SANTA: 240,              // px. La altura se calcula sola para no deformarlo
     OPACIDAD_SANTA: 0.6,
-    VELOCIDAD_SANTA: 140,          // px por segundo
+    VELOCIDAD_SANTA: 200,          // px por segundo
     ALTURA_MIN_VH: 1,              // franja vertical donde puede aparecer (en % del alto de pantalla)
     ALTURA_MAX_VH: 10,
 
