@@ -33,10 +33,10 @@
 
     // --- Nieve ---
     COLOR_COPO: '140, 185, 235',   // RGB azul claro (el blanco puro no se ve sobre fondo blanco)
-    COPO_RADIO_MIN: 1,             // radio en px (diámetro 2 px)
-    COPO_RADIO_MAX: 3,             // radio en px (diámetro 6 px)
-    OPACIDAD_MIN: 0.25,
-    OPACIDAD_MAX: 0.55,
+    COPO_RADIO_MIN: 1.5,           // radio en px (diámetro 3 px)
+    COPO_RADIO_MAX: 4,             // radio en px (diámetro 8 px)
+    OPACIDAD_MIN: 0.35,
+    OPACIDAD_MAX: 0.70,
     COPOS_MIN: 40,
     COPOS_MAX: 120,
     PIXELES_POR_COPO: 16000,       // 1 copo por cada X px² de pantalla (se limita entre MIN y MAX)
@@ -45,13 +45,13 @@
     RUTA_IMAGEN: 'img/papa_noel.png',
     ANCHO_SANTA: 240,              // px. La altura se calcula sola para no deformarlo
     OPACIDAD_SANTA: 0.6,
-    VELOCIDAD_SANTA: 250,          // px por segundo
+    VELOCIDAD_SANTA: 140,          // px por segundo
     ALTURA_MIN_VH: 1,              // franja vertical donde puede aparecer (en % del alto de pantalla)
     ALTURA_MAX_VH: 10,
 
     // Tiempos (en milisegundos)
     PRIMER_SANTA_MS:        60 * 1000,        // primera aparición tras cargar la página
-    INTERVALO_MIN_MS:       10 * 60 * 1000,    // entre pasadas: de 10 a 20 minutos
+    INTERVALO_MIN_MS:       10 * 60 * 1000,   // entre pasadas: de 10 a 20 minutos
     INTERVALO_MAX_MS:       20 * 60 * 1000,
     // Valores usados mientras MODO_PRUEBA = true
     PRUEBA_PRIMER_SANTA_MS: 3 * 1000,
