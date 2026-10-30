@@ -50,9 +50,9 @@
     ALTURA_MAX_VH: 10,
 
     // Tiempos (en milisegundos)
-    PRIMER_SANTA_MS:        30 * 1000,        // primera aparición tras cargar la página
-    INTERVALO_MIN_MS:       5 * 60 * 1000,    // entre pasadas: de 5 a 10 minutos
-    INTERVALO_MAX_MS:       10 * 60 * 1000,
+    PRIMER_SANTA_MS:        60 * 1000,        // primera aparición tras cargar la página
+    INTERVALO_MIN_MS:       10 * 60 * 1000,    // entre pasadas: de 10 a 20 minutos
+    INTERVALO_MAX_MS:       20 * 60 * 1000,
     // Valores usados mientras MODO_PRUEBA = true
     PRUEBA_PRIMER_SANTA_MS: 3 * 1000,
     PRUEBA_INTERVALO_MS:    20 * 1000,
